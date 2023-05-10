@@ -3,13 +3,15 @@
 #include <conio.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <string.h>
 
 char lua_chon;
 int x_nguoi_choi = 10;
 int y_nguoi_choi = 10;
-int x_tam, y_tam, i;
+int x_tam, y_tam, i, do_dai_chuoi_hanh_dong;
 int cay_toa_do_x[100];
 int cay_toa_do_y[100];
+char hanh_dong[100] = "Ban dang dung yen";
 // int gio = 6;
 // int phut = 0;
 
@@ -88,7 +90,16 @@ int main()
 
         gotoxy(x_nguoi_choi, y_nguoi_choi); // toa do nguoi choi
         printf("@");                        // nguoi choi
-        x_tam = x_nguoi_choi;               // luu toa do cua nguoi choi de xoa nguoi choi khi di chuyen
+
+        gotoxy(5, 23);
+        for (i = 0; i <= do_dai_chuoi_hanh_dong; i++) // xoa chuoi hanh dong truoc do
+            printf(" ");
+
+        gotoxy(5, 23);
+        puts(hanh_dong);
+        do_dai_chuoi_hanh_dong = strlen(hanh_dong); // hien thi chuoi hanh dong cua nhan vat
+
+        x_tam = x_nguoi_choi; // luu toa do cua nguoi choi de xoa nguoi choi khi di chuyen
         y_tam = y_nguoi_choi;
 
         di_chuyen();
@@ -108,21 +119,25 @@ void di_chuyen() // ham di chuyen vi tri cua nguoi choi
     case 'w':
     {
         y_nguoi_choi--;
+        strcpy(hanh_dong, "Ban vua di len");
         break;
     }
     case 'a':
     {
         x_nguoi_choi--;
+        strcpy(hanh_dong, "Ban vua sang trai");
         break;
     }
     case 's':
     {
         y_nguoi_choi++;
+        strcpy(hanh_dong, "Ban vua di xuong");
         break;
     }
     case 'd':
     {
         x_nguoi_choi++;
+        strcpy(hanh_dong, "Ban vua sang phai");
         break;
     }
     }
