@@ -8,10 +8,11 @@
 char lua_chon;
 int x_nguoi_choi = 10;
 int y_nguoi_choi = 10;
-int x_tam, y_tam, i, do_dai_chuoi_hanh_dong;
+int x_tam, y_tam, i, do_dai_chuoi_hanh_dong, do_dai_chuoi_tam_nhin;
 int cay_toa_do_x[100];
 int cay_toa_do_y[100];
 char hanh_dong[100] = "Ban dang dung yen";
+char tam_nhin[100];
 // int gio = 6;
 // int phut = 0;
 
@@ -43,6 +44,7 @@ void gotoxy(int x, int y) // ham di chuyen con tro toi vi tri x y
 void di_chuyen_va_hanh_dong();
 void va_cham();
 void thuc_hien_hanh_dong();
+int kiem_tra_vat_the();
 
 int main()
 {
@@ -95,6 +97,14 @@ int main()
         gotoxy(5, 23);
         for (i = 0; i <= do_dai_chuoi_hanh_dong; i++) // xoa chuoi hanh dong truoc do
             printf(" ");
+        
+        gotoxy(5, 3);
+        for (i = 0; i <= do_dai_chuoi_tam_nhin; i++) // xoa chuoi tam nhin truoc do
+            printf(" ");
+
+        gotoxy(5, 3);
+        puts(tam_nhin);
+        do_dai_chuoi_tam_nhin = strlen(tam_nhin); // hien thi chuoi tam nhin cua nhan vat
 
         gotoxy(5, 23);
         puts(hanh_dong);
@@ -112,7 +122,7 @@ int main()
     return 0;
 }
 
-void di_chuyen_va_hanh_dong() // ham di chuyen vi tri cua nguoi choi
+void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua nguoi choi
 {
     lua_chon = getch();
     switch (lua_chon)
@@ -143,21 +153,13 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri cua nguoi choi
     }
     case 'k':
     {
-        for (i = 0; i < 3; i++) // kiem tra nguoi choi co dung gan cay khong
-        {
-            if (cay_toa_do_x[i] == x_nguoi_choi + 1 && cay_toa_do_y[i] == y_nguoi_choi)
-                thuc_hien_hanh_dong();
-            if (cay_toa_do_x[i] == x_nguoi_choi - 1 && cay_toa_do_y[i] == y_nguoi_choi)
-                thuc_hien_hanh_dong();
-            if (cay_toa_do_x[i] == x_nguoi_choi && cay_toa_do_y[i] == y_nguoi_choi + 1)
-                thuc_hien_hanh_dong();
-            if (cay_toa_do_x[i] == x_nguoi_choi && cay_toa_do_y[i] == y_nguoi_choi - 1)
-                thuc_hien_hanh_dong();
-        }
+        if (kiem_tra_vat_the() == 1)
+            thuc_hien_hanh_dong();
         break;
     }
     }
     va_cham();
+    kiem_tra_vat_the();
 }
 
 void va_cham() // ham kiem tra khi nguoi choi tien vao nhung noi khong duoc phep di chuyen
@@ -190,4 +192,33 @@ void thuc_hien_hanh_dong()
     cay_toa_do_x[i] = NULL;
     cay_toa_do_y[i] = NULL;
     strcpy(hanh_dong, "Ban vua chat cay");
+}
+
+int kiem_tra_vat_the() // kiem tra vat the o gan nguoi choi
+{
+    for (i = 0; i < 3; i++)
+    {
+        if (cay_toa_do_x[i] == x_nguoi_choi + 1 && cay_toa_do_y[i] == y_nguoi_choi)
+        {
+            strcpy(tam_nhin, "Ben phai ban la cai cay"); // vi tri cua vat the so voi nguoi choi
+            return 1;
+        }
+        if (cay_toa_do_x[i] == x_nguoi_choi - 1 && cay_toa_do_y[i] == y_nguoi_choi)
+        {
+            strcpy(tam_nhin, "Ben trai ban la cai cay");
+            return 1;
+        }
+        if (cay_toa_do_x[i] == x_nguoi_choi && cay_toa_do_y[i] == y_nguoi_choi + 1)
+        {
+            strcpy(tam_nhin, "Ben duoi ban la cai cay");
+            return 1;
+        }
+        if (cay_toa_do_x[i] == x_nguoi_choi && cay_toa_do_y[i] == y_nguoi_choi - 1)
+        {
+            strcpy(tam_nhin, "Ben tren ban la cai cay");
+            return 1;
+        }
+    }
+    strcpy(tam_nhin, " "); // nguoi choi khong o gan bat ky vat the nao
+    return 0;
 }
