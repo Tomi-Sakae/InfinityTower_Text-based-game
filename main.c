@@ -40,8 +40,9 @@ void gotoxy(int x, int y) // ham di chuyen con tro toi vi tri x y
     SetConsoleCursorPosition(h, c);
 }
 
-void di_chuyen();
+void di_chuyen_va_hanh_dong();
 void va_cham();
+void thuc_hien_hanh_dong();
 
 int main()
 {
@@ -102,7 +103,7 @@ int main()
         x_tam = x_nguoi_choi; // luu toa do cua nguoi choi de xoa nguoi choi khi di chuyen
         y_tam = y_nguoi_choi;
 
-        di_chuyen();
+        di_chuyen_va_hanh_dong();
 
         gotoxy(x_tam, y_tam);
         printf(" "); // xoa nguoi choi o vi tri cu
@@ -111,7 +112,7 @@ int main()
     return 0;
 }
 
-void di_chuyen() // ham di chuyen vi tri cua nguoi choi
+void di_chuyen_va_hanh_dong() // ham di chuyen vi tri cua nguoi choi
 {
     lua_chon = getch();
     switch (lua_chon)
@@ -140,6 +141,21 @@ void di_chuyen() // ham di chuyen vi tri cua nguoi choi
         strcpy(hanh_dong, "Ban vua sang phai");
         break;
     }
+    case 'k':
+    {
+        for (i = 0; i < 3; i++) // kiem tra nguoi choi co dung gan cay khong
+        {
+            if (cay_toa_do_x[i] == x_nguoi_choi + 1 && cay_toa_do_y[i] == y_nguoi_choi)
+                thuc_hien_hanh_dong();
+            if (cay_toa_do_x[i] == x_nguoi_choi - 1 && cay_toa_do_y[i] == y_nguoi_choi)
+                thuc_hien_hanh_dong();
+            if (cay_toa_do_x[i] == x_nguoi_choi && cay_toa_do_y[i] == y_nguoi_choi + 1)
+                thuc_hien_hanh_dong();
+            if (cay_toa_do_x[i] == x_nguoi_choi && cay_toa_do_y[i] == y_nguoi_choi - 1)
+                thuc_hien_hanh_dong();
+        }
+        break;
+    }
     }
     va_cham();
 }
@@ -165,4 +181,13 @@ void va_cham() // ham kiem tra khi nguoi choi tien vao nhung noi khong duoc phep
             y_nguoi_choi = y_tam;
         }
     }
+}
+
+void thuc_hien_hanh_dong()
+{
+    gotoxy(cay_toa_do_x[i], cay_toa_do_y[i]); // xoa cay o vi tri vua chat
+    printf(" ");
+    cay_toa_do_x[i] = NULL;
+    cay_toa_do_y[i] = NULL;
+    strcpy(hanh_dong, "Ban vua chat cay");
 }
