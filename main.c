@@ -165,22 +165,16 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
         them_cay();
         break;
     }
-        if (j == 1)
-        case 'p':
-        {
-            cay_toa_do_x[so_luong_cay] = x_nguoi_choi+1;
-            cay_toa_do_y[so_luong_cay] = y_nguoi_choi;
-            so_luong_cay++;
-            printf("C");
-            break;
-        }
-            if (j == 1)
-            case 'q':
-            {
-                j = 2;
-                break;
-            }
     }
+    if (j == 1 && lua_chon == 'p')
+    {
+        cay_toa_do_x[so_luong_cay] = x_nguoi_choi + 1;
+        cay_toa_do_y[so_luong_cay] = y_nguoi_choi;
+        so_luong_cay++;
+        j = 3;
+    }
+    if (j == 1 && lua_chon == 'q')
+        j = 2;
     if (j != 1)
         va_cham();
     kiem_tra_vat_the();
@@ -257,13 +251,21 @@ void them_cay()
     j = 1;
     while (1)
     {
+
         x = x_nguoi_choi;
         y = y_nguoi_choi;
         gotoxy(x_nguoi_choi, y_nguoi_choi);
-        printf(">");
+        printf("+");
         di_chuyen_va_hanh_dong();
         gotoxy(x, y);
         printf(" ");
+        if (j == 3 && (x != x_nguoi_choi || y != y_nguoi_choi))
+        {
+            gotoxy(x, y);
+            printf("C");
+            j = 1;
+        }
+
         if (j == 2)
         {
             x_nguoi_choi = x_tam;
