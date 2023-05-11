@@ -168,14 +168,14 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
     }
     if (j == 1 && lua_chon == 'p')
     {
-        cay_toa_do_x[so_luong_cay] = x_nguoi_choi + 1;
+        cay_toa_do_x[so_luong_cay] = x_nguoi_choi;
         cay_toa_do_y[so_luong_cay] = y_nguoi_choi;
         so_luong_cay++;
         j = 3;
     }
     if (j == 1 && lua_chon == 'q')
         j = 2;
-    if (j != 1)
+    if (j == 0)
         va_cham();
     kiem_tra_vat_the();
 }
@@ -270,6 +270,7 @@ void them_cay()
         {
             x_nguoi_choi = x_tam;
             y_nguoi_choi = y_tam;
+            j = 0;
             break;
         }
     }
