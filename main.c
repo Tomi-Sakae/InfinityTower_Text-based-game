@@ -13,6 +13,8 @@ int cay_toa_do_x[100];
 int cay_toa_do_y[100];
 char hanh_dong[100] = "Ban dang dung yen";
 char tam_nhin[100];
+int so_luong_cay = 3;
+int j = 0;
 // int gio = 6;
 // int phut = 0;
 
@@ -45,11 +47,12 @@ void di_chuyen_va_hanh_dong();
 void va_cham();
 void thuc_hien_hanh_dong();
 int kiem_tra_vat_the();
+void them_cay();
 
 int main()
 {
     srand((int)time(0));
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < so_luong_cay; i++)
     {
         cay_toa_do_x[i] = random(7, 52);
         cay_toa_do_y[i] = random(6, 20);
@@ -97,7 +100,7 @@ int main()
         gotoxy(5, 23);
         for (i = 0; i <= do_dai_chuoi_hanh_dong; i++) // xoa chuoi hanh dong truoc do
             printf(" ");
-        
+
         gotoxy(5, 3);
         for (i = 0; i <= do_dai_chuoi_tam_nhin; i++) // xoa chuoi tam nhin truoc do
             printf(" ");
@@ -157,8 +160,29 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
             thuc_hien_hanh_dong();
         break;
     }
+    case 't':
+    {
+        them_cay();
+        break;
     }
-    va_cham();
+        if (j == 1)
+        case 'p':
+        {
+            cay_toa_do_x[so_luong_cay] = x_nguoi_choi+1;
+            cay_toa_do_y[so_luong_cay] = y_nguoi_choi;
+            so_luong_cay++;
+            printf("C");
+            break;
+        }
+            if (j == 1)
+            case 'q':
+            {
+                j = 2;
+                break;
+            }
+    }
+    if (j != 1)
+        va_cham();
     kiem_tra_vat_the();
 }
 
@@ -175,7 +199,7 @@ void va_cham() // ham kiem tra khi nguoi choi tien vao nhung noi khong duoc phep
         y_nguoi_choi = 6;
 
     // kiem tra va cham vat the
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < so_luong_cay; i++)
     {
         if (x_nguoi_choi == cay_toa_do_x[i] && y_nguoi_choi == cay_toa_do_y[i])
         {
@@ -196,7 +220,7 @@ void thuc_hien_hanh_dong()
 
 int kiem_tra_vat_the() // kiem tra vat the o gan nguoi choi
 {
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < so_luong_cay; i++)
     {
         if (cay_toa_do_x[i] == x_nguoi_choi + 1 && cay_toa_do_y[i] == y_nguoi_choi)
         {
@@ -221,4 +245,30 @@ int kiem_tra_vat_the() // kiem tra vat the o gan nguoi choi
     }
     strcpy(tam_nhin, " "); // nguoi choi khong o gan bat ky vat the nao
     return 0;
+}
+
+void them_cay()
+{
+    int x, y;
+    x_tam = x_nguoi_choi;
+    y_tam = y_nguoi_choi;
+    x_nguoi_choi = 22;
+    y_nguoi_choi = 7;
+    j = 1;
+    while (1)
+    {
+        x = x_nguoi_choi;
+        y = y_nguoi_choi;
+        gotoxy(x_nguoi_choi, y_nguoi_choi);
+        printf(">");
+        di_chuyen_va_hanh_dong();
+        gotoxy(x, y);
+        printf(" ");
+        if (j == 2)
+        {
+            x_nguoi_choi = x_tam;
+            y_nguoi_choi = y_tam;
+            break;
+        }
+    }
 }
