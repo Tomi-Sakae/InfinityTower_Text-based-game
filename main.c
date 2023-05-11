@@ -48,6 +48,7 @@ void va_cham();
 void thuc_hien_hanh_dong();
 int kiem_tra_vat_the();
 void them_cay();
+int kiem_tra_toa_do_vat_the();
 
 int main()
 {
@@ -156,7 +157,7 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
     }
     case 'k':
     {
-        if (kiem_tra_vat_the() == 1)
+        if (kiem_tra_vat_the() != 0)
             thuc_hien_hanh_dong();
         break;
     }
@@ -224,17 +225,17 @@ int kiem_tra_vat_the() // kiem tra vat the o gan nguoi choi
         if (cay_toa_do_x[i] == x_nguoi_choi - 1 && cay_toa_do_y[i] == y_nguoi_choi)
         {
             strcpy(tam_nhin, "Ben trai ban la cai cay");
-            return 1;
+            return 2;
         }
         if (cay_toa_do_x[i] == x_nguoi_choi && cay_toa_do_y[i] == y_nguoi_choi + 1)
         {
             strcpy(tam_nhin, "Ben duoi ban la cai cay");
-            return 1;
+            return 3;
         }
         if (cay_toa_do_x[i] == x_nguoi_choi && cay_toa_do_y[i] == y_nguoi_choi - 1)
         {
             strcpy(tam_nhin, "Ben tren ban la cai cay");
-            return 1;
+            return 4;
         }
     }
     strcpy(tam_nhin, " "); // nguoi choi khong o gan bat ky vat the nao
@@ -246,8 +247,8 @@ void them_cay()
     int x, y;
     x_tam = x_nguoi_choi;
     y_tam = y_nguoi_choi;
-    x_nguoi_choi = 22;
-    y_nguoi_choi = 7;
+    x_nguoi_choi = 29;
+    y_nguoi_choi = 13;
     j = 1;
     while (1)
     {
@@ -273,5 +274,14 @@ void them_cay()
             j = 0;
             break;
         }
+    }
+}
+
+int kiem_tra_toa_do_vat_the()
+{
+    for (i = 0; i < so_luong_cay; i++)
+    {
+        if(x_nguoi_choi == cay_toa_do_x[i] && y_nguoi_choi == cay_toa_do_y[i])
+            return 1;
     }
 }
