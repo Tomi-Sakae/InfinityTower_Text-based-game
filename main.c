@@ -82,30 +82,32 @@ int main()
         printf("C");                                      // cai cay
     }
 
+    int y = 6;
+    // thiet ke khung tro choi chinh
+    gotoxy(5, 5);
+    for (i = 1; i <= 50; i++)
+        printf("=");
+    for (i = 1; i <= 15; i++)
+    {
+        gotoxy(53, y);
+        printf("||");
+        y++;
+    }
+    y = 6;
+    gotoxy(5, 21);
+    for (i = 1; i <= 50; i++)
+        printf("=");
+    for (i = 1; i <= 15; i++)
+    {
+        gotoxy(5, y);
+        printf("||");
+        y++;
+    }
+    // ket thuc thiet ke khung tro choi chinh
+    
     while (1)
     {
-        int y = 6;
-        // thiet ke khung tro choi chinh
-        gotoxy(5, 5);
-        for (i = 1; i <= 50; i++)
-            printf("=");
-        for (i = 1; i <= 15; i++)
-        {
-            gotoxy(53, y);
-            printf("||");
-            y++;
-        }
-        y = 6;
-        gotoxy(5, 21);
-        for (i = 1; i <= 50; i++)
-            printf("=");
-        for (i = 1; i <= 15; i++)
-        {
-            gotoxy(5, y);
-            printf("||");
-            y++;
-        }
-        // ket thuc thiet ke khung tro choi chinh
+
         /*
         gotoxy(0, 0);
         if (phut >= 10)
