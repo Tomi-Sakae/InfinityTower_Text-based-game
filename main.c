@@ -215,6 +215,30 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
             thuc_hien_dat_khoi();
         break;
     }
+    case 75:
+    {
+        nguoi_choi = '<'; // doi huong cua nguoi choi bang cac phim mui ten
+        huong_nguoi_choi = 2;
+        break;
+    }
+    case 72:
+    {
+        nguoi_choi = '^';
+        huong_nguoi_choi = 1;
+        break;
+    }
+    case 77:
+    {
+        nguoi_choi = '>';
+        huong_nguoi_choi = 4;
+        break;
+    }
+    case 80:
+    {
+        nguoi_choi = 'v';
+        huong_nguoi_choi = 3;
+        break;
+    }
     }
     va_cham();
     kiem_tra_vat_the();
@@ -269,25 +293,37 @@ int kiem_tra_vat_the() // kiem tra vat the o gan nguoi choi
     strcpy(tam_nhin, "Do la ");
     for (i = 0; i < so_luong_vat_the; i++)
     {
-        if (vat_the[i].toa_do_x == x_nguoi_choi + 1 && vat_the[i].toa_do_y == y_nguoi_choi)
+        if (huong_nguoi_choi == 4) // fix loi cac phim mui ten
         {
-            strcat(tam_nhin, vat_the[i].ten);
-            return 4; // tra ve huong cua vat the so voi nguoi choi
+            if (vat_the[i].toa_do_x == x_nguoi_choi + 1 && vat_the[i].toa_do_y == y_nguoi_choi)
+            {
+                strcat(tam_nhin, vat_the[i].ten);
+                return 4; // tra ve huong cua vat the so voi nguoi choi
+            }
         }
-        if (vat_the[i].toa_do_x == x_nguoi_choi - 1 && vat_the[i].toa_do_y == y_nguoi_choi)
+        if (huong_nguoi_choi == 2)
         {
-            strcat(tam_nhin, vat_the[i].ten);
-            return 2;
+            if (vat_the[i].toa_do_x == x_nguoi_choi - 1 && vat_the[i].toa_do_y == y_nguoi_choi)
+            {
+                strcat(tam_nhin, vat_the[i].ten);
+                return 2;
+            }
         }
-        if (vat_the[i].toa_do_x == x_nguoi_choi && vat_the[i].toa_do_y == y_nguoi_choi + 1)
+        if (huong_nguoi_choi == 3)
         {
-            strcat(tam_nhin, vat_the[i].ten);
-            return 3;
+            if (vat_the[i].toa_do_x == x_nguoi_choi && vat_the[i].toa_do_y == y_nguoi_choi + 1)
+            {
+                strcat(tam_nhin, vat_the[i].ten);
+                return 3;
+            }
         }
-        if (vat_the[i].toa_do_x == x_nguoi_choi && vat_the[i].toa_do_y == y_nguoi_choi - 1)
+        if (huong_nguoi_choi == 1)
         {
-            strcat(tam_nhin, vat_the[i].ten);
-            return 1;
+            if (vat_the[i].toa_do_x == x_nguoi_choi && vat_the[i].toa_do_y == y_nguoi_choi - 1)
+            {
+                strcat(tam_nhin, vat_the[i].ten);
+                return 1;
+            }
         }
     }
     strcpy(tam_nhin, " "); // nguoi choi khong o gan bat ky vat the nao
@@ -296,7 +332,6 @@ int kiem_tra_vat_the() // kiem tra vat the o gan nguoi choi
 
 void thuc_hien_dat_khoi()
 {
-    int x, y;
     if ((x_nguoi_choi < 52 && x_nguoi_choi > 7) && (y_nguoi_choi < 20 && y_nguoi_choi > 6)) // kiem tra vi tri dat khoi cua nguoi choi
     {
         if (huong_nguoi_choi == 1 && kiem_tra_vi_tri_vat_the(x_nguoi_choi, y_nguoi_choi - 1) != 1) // kiem tra vi tri dat khoi co trung voi khoi da co hay khong
