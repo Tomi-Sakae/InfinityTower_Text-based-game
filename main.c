@@ -64,14 +64,14 @@ int kiem_tra_vi_tri_vat_the(int x, int y);
 int main()
 {
     srand((int)time(0));
-    so_luong_vat_the = random(5, 10);
+    so_luong_vat_the = random(25, 50);
 
     x_nguoi_choi = random(7, 52);
     y_nguoi_choi = random(6, 20);
 
     for (i = 0; i < so_luong_vat_the; i++)
     {
-        vat_the[i].toa_do_x = random(7, 52);
+        vat_the[i].toa_do_x = random(8, 52);
         vat_the[i].toa_do_y = random(6, 20);
 
         if (vat_the[i].toa_do_x == x_nguoi_choi && vat_the[i].toa_do_y == y_nguoi_choi)
