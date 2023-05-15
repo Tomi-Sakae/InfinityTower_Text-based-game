@@ -22,7 +22,7 @@ int huong_nguoi_choi = 4;
 int gio = 6;
 int phut = 0;
 
-void *thoi_gian(void *vargp)
+void *thoi_gian(void *vargp) // luong chay thoi gian
 {
     while (1)
     {
