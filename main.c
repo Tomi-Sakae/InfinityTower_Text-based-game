@@ -9,7 +9,7 @@
 char lua_chon;
 int x_nguoi_choi;
 int y_nguoi_choi;
-int x_tam, y_tam, i, huong_nguoi_choi, do_dai_chuoi_hanh_dong, do_dai_chuoi_tam_nhin;
+int x_tam, y_tam, i, j, do_dai_chuoi_hanh_dong, do_dai_chuoi_tam_nhin;
 int do_dai_chuoi_tay_phai;
 char hanh_dong[100] = "Ban dang dung yen";
 char tam_nhin[100];
@@ -17,6 +17,7 @@ char tay_phai[100] = "Tay phai: Go x ";
 int so_luong_vat_the = 0;
 int so_luong_go = 0;
 char nguoi_choi = '>';
+int huong_nguoi_choi = 4;
 // int gio = 6;
 // int phut = 0;
 
@@ -54,6 +55,44 @@ void gotoxy(int x, int y) // ham di chuyen con tro toi vi tri x y
     SetConsoleCursorPosition(h, c);
 }
 
+void xoa_chuoi_va_hien_chuoi() // ham hien thi chuoi va xoa chuoi
+{
+    gotoxy(5, 23);
+    for (i = 0; i <= do_dai_chuoi_hanh_dong; i++) // xoa chuoi hanh dong truoc do
+        printf(" ");
+
+    gotoxy(5, 3);
+    for (i = 0; i <= do_dai_chuoi_tam_nhin; i++) // xoa chuoi tam nhin truoc do
+        printf(" ");
+
+    gotoxy(56, 6);
+    for (i = 0; i <= do_dai_chuoi_tay_phai; i++) // xoa chuoi tay phai truoc do
+        printf(" ");
+
+    gotoxy(5, 3);
+    puts(tam_nhin);
+    do_dai_chuoi_tam_nhin = strlen(tam_nhin); // hien thi chuoi tam nhin cua nhan vat
+
+    gotoxy(5, 23);
+    puts(hanh_dong);
+    do_dai_chuoi_hanh_dong = strlen(hanh_dong); // hien thi chuoi hanh dong cua nhan vat
+
+    gotoxy(56, 6);
+    puts(tay_phai); // hien thi chuoi tay phai
+    gotoxy(71, 6);
+    printf("%d", so_luong_go);
+
+    int temp, count = 0;
+    temp = so_luong_go;
+    while (temp != 0) // nhom lenh tim so luong chu so de xoa cho hop ly
+    {
+        count++;
+        temp = temp / 10;
+    }
+
+    do_dai_chuoi_tay_phai = strlen(tay_phai) + count;
+}
+
 void di_chuyen_va_hanh_dong();
 void va_cham();
 void thuc_hien_hanh_dong();
@@ -69,21 +108,43 @@ int main()
     x_nguoi_choi = random(7, 52);
     y_nguoi_choi = random(6, 20);
 
-    for (i = 0; i < so_luong_vat_the; i++)
+    while (1)
     {
-        vat_the[i].toa_do_x = random(8, 52);
-        vat_the[i].toa_do_y = random(6, 20);
+        for (i = 0; i < so_luong_vat_the; i++) // nhom lenh tao cay o toa do ngau nhien
+        {
+            vat_the[i].toa_do_x = random(8, 52);
+            vat_the[i].toa_do_y = random(6, 20);
 
-        if (vat_the[i].toa_do_x == x_nguoi_choi && vat_the[i].toa_do_y == y_nguoi_choi)
-            x_nguoi_choi--; // sua loi cay xuat hien ngay vi tri nguoi choi
+            if (vat_the[i].toa_do_x == x_nguoi_choi && vat_the[i].toa_do_y == y_nguoi_choi)
+                x_nguoi_choi--; // sua loi cay xuat hien ngay vi tri nguoi choi
+        }
 
+        int kiem_tra_so_luong = 0;
+        for (i = 0; i < so_luong_vat_the; i++) // nhom lenh kiem tra cac cay chong len nhau
+        {
+            int kt = 0;
+            for (j = 0; j < so_luong_vat_the; j++)
+            {
+                if (vat_the[j].toa_do_x == vat_the[i].toa_do_x && vat_the[j].toa_do_y == vat_the[i].toa_do_y)
+                    kt++;
+            }
+            if (kt >= 2)
+                break;
+            kiem_tra_so_luong++;
+        }
+        if (kiem_tra_so_luong == so_luong_vat_the)
+            break;
+    }
+
+    for (i = 0; i < so_luong_vat_the; i++) // tao cay
+    {
         strcpy(vat_the[i].ten, "cai cay");
         gotoxy(vat_the[i].toa_do_x, vat_the[i].toa_do_y); // tao cay o vi tri ngau nhien
         printf("C");                                      // cai cay
     }
 
-    int y = 6;
     // thiet ke khung tro choi chinh
+    int y = 6;
     gotoxy(5, 5);
     for (i = 1; i <= 50; i++)
         printf("=");
@@ -104,7 +165,8 @@ int main()
         y++;
     }
     // ket thuc thiet ke khung tro choi chinh
-    
+    kiem_tra_vat_the();
+
     while (1)
     {
 
@@ -121,43 +183,13 @@ int main()
         gotoxy(x_nguoi_choi, y_nguoi_choi); // toa do nguoi choi
         printf("%c", nguoi_choi);           // nguoi choi
 
-        gotoxy(5, 23);
-        for (i = 0; i <= do_dai_chuoi_hanh_dong; i++) // xoa chuoi hanh dong truoc do
-            printf(" ");
-
-        gotoxy(5, 3);
-        for (i = 0; i <= do_dai_chuoi_tam_nhin; i++) // xoa chuoi tam nhin truoc do
-            printf(" ");
-
-        gotoxy(56, 6);
-        for (i = 0; i <= do_dai_chuoi_tay_phai; i++) // xoa chuoi tay phai truoc do
-            printf(" ");
-
-        gotoxy(5, 3);
-        puts(tam_nhin);
-        do_dai_chuoi_tam_nhin = strlen(tam_nhin); // hien thi chuoi tam nhin cua nhan vat
-
-        gotoxy(5, 23);
-        puts(hanh_dong);
-        do_dai_chuoi_hanh_dong = strlen(hanh_dong); // hien thi chuoi hanh dong cua nhan vat
-
-        gotoxy(56, 6);
-        puts(tay_phai); // hien thi chuoi tay phai
-        gotoxy(71, 6);
-        printf("%d", so_luong_go);
-
-        int temp, count = 0;
-        temp = so_luong_go;
-        while (temp != 0) // nhom lenh tim so luong chu so de xoa cho hop ly
-        {
-            count++;
-            temp = temp / 10;
-        }
-
-        do_dai_chuoi_tay_phai = strlen(tay_phai) + count;
+        xoa_chuoi_va_hien_chuoi();
 
         x_tam = x_nguoi_choi; // luu toa do cua nguoi choi de xoa nguoi choi khi di chuyen
         y_tam = y_nguoi_choi;
+
+        gotoxy(1, 1);
+        printf("%d", so_luong_vat_the);
 
         di_chuyen_va_hanh_dong();
 
