@@ -301,8 +301,8 @@ void va_cham() // ham kiem tra khi nguoi choi tien vao nhung noi khong duoc phep
 
 void thuc_hien_hanh_dong()
 {
-    gotoxy(vat_the[i].toa_do_x, vat_the[i].toa_do_y); // xoa cay o vi tri vua chat
-    printf(" ");
+    gotoxy(vat_the[i].toa_do_x, vat_the[i].toa_do_y); // bien i duoc lay tu ham kiem tra vat the
+    printf(" "); // xoa cay o vi tri vua chat
 
     vat_the[i].toa_do_x = NULL;
     vat_the[i].toa_do_y = NULL;
