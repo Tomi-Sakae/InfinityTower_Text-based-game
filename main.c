@@ -13,7 +13,7 @@ int x_tam, y_tam, i, j, do_dai_chuoi_hanh_dong, do_dai_chuoi_tam_nhin;
 int do_dai_chuoi_tay_phai;
 char hanh_dong[100] = "Ban dang dung yen";
 char tam_nhin[100];
-char tay_phai[100] = "Tay phai: Go x ";
+char tay_phai[100] = "Khong";
 int so_luong_vat_the = 0;
 int so_luong_go = 0;
 char nguoi_choi = '>';
@@ -65,7 +65,7 @@ void xoa_chuoi_va_hien_chuoi() // ham hien thi chuoi va xoa chuoi
     for (i = 0; i <= do_dai_chuoi_tam_nhin; i++) // xoa chuoi tam nhin truoc do
         printf(" ");
 
-    gotoxy(56, 6);
+    gotoxy(67, 6);
     for (i = 0; i <= do_dai_chuoi_tay_phai; i++) // xoa chuoi tay phai truoc do
         printf(" ");
 
@@ -77,10 +77,19 @@ void xoa_chuoi_va_hien_chuoi() // ham hien thi chuoi va xoa chuoi
     puts(hanh_dong);
     do_dai_chuoi_hanh_dong = strlen(hanh_dong); // hien thi chuoi hanh dong cua nhan vat
 
+    if (so_luong_go != 0)
+        strcpy(tay_phai, "Go x ");
+    else
+        strcpy(tay_phai, "Khong");
+
     gotoxy(56, 6);
+    printf("Tay phai: ");
     puts(tay_phai); // hien thi chuoi tay phai
-    gotoxy(71, 6);
-    printf("%d", so_luong_go);
+    if (so_luong_go != 0)
+    {
+        gotoxy(71, 6);
+        printf("%d", so_luong_go);
+    }
 
     int temp, count = 0;
     temp = so_luong_go;
@@ -302,7 +311,7 @@ void va_cham() // ham kiem tra khi nguoi choi tien vao nhung noi khong duoc phep
 void thuc_hien_hanh_dong()
 {
     gotoxy(vat_the[i].toa_do_x, vat_the[i].toa_do_y); // bien i duoc lay tu ham kiem tra vat the
-    printf(" "); // xoa cay o vi tri vua chat
+    printf(" ");                                      // xoa cay o vi tri vua chat
 
     vat_the[i].toa_do_x = NULL;
     vat_the[i].toa_do_y = NULL;
@@ -421,7 +430,7 @@ void bo_lo() // ham kiem tra toa do cua mang vat_the co rong hay khong
         {
             vat_the[i].toa_do_x = vat_the[so_luong_vat_the].toa_do_x;
             vat_the[i].toa_do_y = vat_the[so_luong_vat_the].toa_do_y;
-            strcpy(vat_the[i].ten,vat_the[so_luong_vat_the].ten);
+            strcpy(vat_the[i].ten, vat_the[so_luong_vat_the].ten);
             return;
         }
     }
