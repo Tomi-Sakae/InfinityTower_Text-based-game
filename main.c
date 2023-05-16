@@ -16,7 +16,7 @@ char tay_phai[100] = "Khong";
 char buoi[100] = "Sang";
 char thoi_tiet[100] = "Nhieu may";
 int so_luong_vat_the = 0;
-int so_luong_go = 0;
+int so_luong_vat_pham = 1;
 char nguoi_choi = '>';
 int huong_nguoi_choi = 4;
 int gio = 6;
@@ -41,14 +41,25 @@ void *thoi_gian(void *vargp) // luong chay thoi gian
     return NULL;
 }
 
-typedef struct doi_tuong
+typedef struct khoi
 {
+    int id;
     char ten[100];
     int toa_do_x;
     int toa_do_y;
+} khoi;
+
+khoi vat_the[1000];
+
+typedef struct doi_tuong
+{
+    int id;
+    char ten[100];
+    int so_luong;
+    int the;
 } doi_tuong;
 
-doi_tuong vat_the[1000];
+doi_tuong vat_pham[1000];
 
 int random(int minN, int maxN) // ham sinh so ngau nhien trong doan tu minN den maxN
 {
@@ -96,19 +107,19 @@ void thong_tin_nhan_vat()
     printf("The luc: %d", the_luc); // hien the luc
     do_dai_chuoi[4] = so_luong_chu_so(the_luc, 0);
 
-    if (so_luong_go != 0)
+    if (vat_pham[0].so_luong != 0)
         strcpy(tay_phai, "Go x ");
     else
         strcpy(tay_phai, "Khong");
     gotoxy(56, 10);
     printf("Tay phai: ");
     puts(tay_phai); // hien thi chuoi tay phai
-    if (so_luong_go != 0)
+    if (vat_pham[0].so_luong != 0)
     {
         gotoxy(71, 10);
-        printf("%d", so_luong_go);
+        printf("%d", vat_pham[0].so_luong);
     }
-    do_dai_chuoi[5] = strlen(tay_phai) + so_luong_chu_so(so_luong_go, 0);
+    do_dai_chuoi[5] = strlen(tay_phai);
 }
 
 void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
@@ -156,16 +167,16 @@ void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
 void tui_do()
 {
     char lua_chon_menu;
-    gotoxy(56,5);
+    gotoxy(56, 5);
     printf("Tui do: ");
     lua_chon_menu = getch();
     switch (lua_chon_menu)
     {
-        case 'e': 
-        {
-            return;
-            break;
-        }
+    case 'e':
+    {
+        return;
+        break;
+    }
     }
 }
 
@@ -177,9 +188,12 @@ void thuc_hien_dat_khoi();
 int kiem_tra_vi_tri_vat_the(int x, int y);
 void bo_lo();
 void chuyen_chuc_nang();
+void them_vat_pham(int id, int so_luong);
 
 int main()
 {
+    vat_pham[0].so_luong = 0; // tao so_luong ao cho vat_pham dau tien
+
     srand((int)time(0));
     so_luong_vat_the = random(25, 50);
 
@@ -313,7 +327,7 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
     }
     case 'p':
     {
-        if (so_luong_go != 0)
+        if (vat_pham[0].so_luong != 0)
             thuc_hien_dat_khoi();
         break;
     }
@@ -386,14 +400,14 @@ void thuc_hien_hanh_dong()
 
     if (strcmp(vat_the[i].ten, "cai cay") == 0)
     {
-        strcpy(hanh_dong, "Ban vua chat cay");
-        so_luong_go += 4;
+        strcpy(hanh_dong, "Ban vua chat cay | + 4 khoi go");
+        them_vat_pham(1,4);
     }
 
     if (strcmp(vat_the[i].ten, "go") == 0)
     {
         strcpy(hanh_dong, "Ban vua chat go");
-        so_luong_go++;
+        them_vat_pham(1,1);
     }
 }
 
@@ -474,7 +488,7 @@ void thuc_hien_dat_khoi()
         strcpy(hanh_dong, "Ban vua dat go");
         strcpy(vat_the[so_luong_vat_the].ten, "go");
         so_luong_vat_the++;
-        so_luong_go--;
+        them_vat_pham(1,-1);
         bo_lo();
     }
 }
@@ -512,5 +526,19 @@ void chuyen_chuc_nang() // xoa man hinh de hien thi menu khac cua game
         gotoxy(56, j);
         for (i = 1; i <= 55; i++)
             printf(" ");
+    }
+}
+
+void them_vat_pham(int id, int so_luong)
+{
+    for(i = 0; i < so_luong_vat_pham; i++)
+    {
+        if(id == 1)
+        {
+            vat_pham[i].id = 1;
+            strcpy(vat_pham[i].ten,"Khoi go");
+            vat_pham[i].so_luong += so_luong;
+            vat_pham[i].the = 0;
+        }
     }
 }
