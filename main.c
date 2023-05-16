@@ -16,7 +16,7 @@ char tay_phai[100] = "Khong";
 char buoi[100] = "Sang";
 char thoi_tiet[100] = "Nhieu may";
 int so_luong_vat_the = 0;
-int so_luong_vat_pham = 1;
+int so_luong_vat_pham = 0;
 char nguoi_choi = '>';
 int huong_nguoi_choi = 4;
 int gio = 6;
@@ -108,7 +108,7 @@ void thong_tin_nhan_vat()
     do_dai_chuoi[4] = so_luong_chu_so(the_luc, 0);
 
     if (vat_pham[0].so_luong != 0)
-        strcpy(tay_phai, "Go x ");
+        strcpy(tay_phai, "Khoi go x ");
     else
         strcpy(tay_phai, "Khong");
     gotoxy(56, 10);
@@ -116,10 +116,10 @@ void thong_tin_nhan_vat()
     puts(tay_phai); // hien thi chuoi tay phai
     if (vat_pham[0].so_luong != 0)
     {
-        gotoxy(71, 10);
+        gotoxy(76, 10);
         printf("%d", vat_pham[0].so_luong);
     }
-    do_dai_chuoi[5] = strlen(tay_phai);
+    do_dai_chuoi[5] = strlen(tay_phai) + so_luong_chu_so(vat_pham[0].so_luong, 0);
 }
 
 void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
@@ -169,6 +169,10 @@ void tui_do()
     char lua_chon_menu;
     gotoxy(56, 5);
     printf("Tui do: ");
+    gotoxy(58, 7);
+    puts(vat_pham[0].ten);
+    gotoxy(58, 9);
+    puts(vat_pham[1].ten);
     lua_chon_menu = getch();
     switch (lua_chon_menu)
     {
@@ -189,11 +193,10 @@ int kiem_tra_vi_tri_vat_the(int x, int y);
 void bo_lo();
 void chuyen_chuc_nang();
 void them_vat_pham(int id, int so_luong);
+void tao_moi_vat_pham(int id, int so_luong);
 
 int main()
 {
-    vat_pham[0].so_luong = 0; // tao so_luong ao cho vat_pham dau tien
-
     srand((int)time(0));
     so_luong_vat_the = random(25, 50);
 
@@ -230,9 +233,18 @@ int main()
 
     for (i = 0; i < so_luong_vat_the; i++) // tao cay
     {
-        strcpy(vat_the[i].ten, "cai cay");
         gotoxy(vat_the[i].toa_do_x, vat_the[i].toa_do_y); // tao cay o vi tri ngau nhien
-        printf("C");                                      // cai cay
+        int cay_da = random(1, 2);
+        if (cay_da == 1)
+        {
+            strcpy(vat_the[i].ten, "cai cay");
+            printf("C"); // cai cay
+        }
+        if (cay_da == 2)
+        {
+            strcpy(vat_the[i].ten, "cuc da");
+            printf("D"); // cuc da
+        }
     }
 
     // thiet ke khung tro choi chinh
@@ -401,13 +413,19 @@ void thuc_hien_hanh_dong()
     if (strcmp(vat_the[i].ten, "cai cay") == 0)
     {
         strcpy(hanh_dong, "Ban vua chat cay | + 4 khoi go");
-        them_vat_pham(1,4);
+        them_vat_pham(1, 4);
     }
 
-    if (strcmp(vat_the[i].ten, "go") == 0)
+    if (strcmp(vat_the[i].ten, "khoi go") == 0)
     {
-        strcpy(hanh_dong, "Ban vua chat go");
-        them_vat_pham(1,1);
+        strcpy(hanh_dong, "Ban vua chat go | + 1 khoi go");
+        them_vat_pham(1, 1);
+    }
+
+    if (strcmp(vat_the[i].ten, "cuc da") == 0)
+    {
+        strcpy(hanh_dong, "Ban vua dao da | + 1 cuc da");
+        them_vat_pham(2, 1);
     }
 }
 
@@ -486,9 +504,9 @@ void thuc_hien_dat_khoi()
 
         printf("G");
         strcpy(hanh_dong, "Ban vua dat go");
-        strcpy(vat_the[so_luong_vat_the].ten, "go");
+        strcpy(vat_the[so_luong_vat_the].ten, "khoi go");
         so_luong_vat_the++;
-        them_vat_pham(1,-1);
+        them_vat_pham(1, -1);
         bo_lo();
     }
 }
@@ -529,16 +547,44 @@ void chuyen_chuc_nang() // xoa man hinh de hien thi menu khac cua game
     }
 }
 
-void them_vat_pham(int id, int so_luong)
+void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi chua co
 {
-    for(i = 0; i < so_luong_vat_pham; i++)
+    if (id == 1)
     {
-        if(id == 1)
-        {
-            vat_pham[i].id = 1;
-            strcpy(vat_pham[i].ten,"Khoi go");
-            vat_pham[i].so_luong += so_luong;
-            vat_pham[i].the = 0;
-        }
+        vat_pham[so_luong_vat_pham].id = 1;
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Khoi go");
+        if (so_luong_vat_pham == 0)
+            vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
+        else
+            vat_pham[so_luong_vat_pham].so_luong += so_luong;
+        vat_pham[so_luong_vat_pham].the = 0;
     }
+    if (id == 2)
+    {
+        vat_pham[so_luong_vat_pham].id = 2;
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Cuc da");
+        if (so_luong_vat_pham == 0)
+            vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
+        else
+            vat_pham[so_luong_vat_pham].so_luong += so_luong;
+        vat_pham[so_luong_vat_pham].the = 0;
+    }
+    so_luong_vat_pham++;
+}
+
+void them_vat_pham(int id, int so_luong) // them vat pham vua nhan vao nguoi choi
+{
+    if (so_luong_vat_pham == 0)
+    {
+        tao_moi_vat_pham(id, so_luong);
+        return;
+    }
+    else
+        for (i = 0; i < so_luong_vat_pham; i++)
+            if (id == vat_pham[i].id) // kiem tra vat pham nay nguoi choi co so huu chua
+            {
+                vat_pham[i].so_luong += so_luong;
+                return;
+            }
+    tao_moi_vat_pham(id, so_luong);
 }
