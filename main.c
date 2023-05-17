@@ -246,19 +246,27 @@ int main()
             break;
     }
 
-    for (i = 0; i < so_luong_vat_the; i++) // tao cay
+    for (i = 0; i < so_luong_vat_the; i++) // tao vat the
     {
-        gotoxy(vat_the[i].toa_do_x, vat_the[i].toa_do_y); // tao cay o vi tri ngau nhien
-        int cay_da = random(1, 2);
-        if (cay_da == 1)
+        gotoxy(vat_the[i].toa_do_x, vat_the[i].toa_do_y); // tao vat the o vi tri ngau nhien
+        int vat_the_ban_dau = random(1, 3);
+        if (vat_the_ban_dau == 1)
         {
             strcpy(vat_the[i].ten, "cai cay");
+            vat_the[i].id = 1;
             printf("C"); // cai cay
         }
-        if (cay_da == 2)
+        if (vat_the_ban_dau == 2)
         {
             strcpy(vat_the[i].ten, "cuc da");
+            vat_the[i].id = 2;
             printf("D"); // cuc da
+        }
+        if(vat_the_ban_dau == 3)
+        {
+            strcpy(vat_the[i].ten, "bui nho");
+            vat_the[i].id = 3;
+            printf("N"); // bui nho
         }
     }
 
@@ -425,7 +433,7 @@ void thuc_hien_hanh_dong()
     vat_the[i].toa_do_x = NULL;
     vat_the[i].toa_do_y = NULL;
 
-    if (strcmp(vat_the[i].ten, "cai cay") == 0)
+    if (vat_the[i].id == 1)
     {
         strcpy(hanh_dong, "Ban vua chat cay | + 4 khoi go");
         them_vat_pham(1, 4);
@@ -437,10 +445,16 @@ void thuc_hien_hanh_dong()
         them_vat_pham(1, 1);
     }
 
-    if (strcmp(vat_the[i].ten, "cuc da") == 0)
+    if (vat_the[i].id == 2)
     {
         strcpy(hanh_dong, "Ban vua dao da | + 1 cuc da");
         them_vat_pham(2, 1);
+    }
+
+    if (vat_the[i].id == 3)
+    {
+        strcpy(hanh_dong, "Ban vua nhat nho | + 1 trai nho");
+        them_vat_pham(3, 1);
     }
 }
 
@@ -578,6 +592,16 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
     {
         vat_pham[so_luong_vat_pham].id = 2;
         strcpy(vat_pham[so_luong_vat_pham].ten, "Cuc da");
+        if (so_luong_vat_pham == 0)
+            vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
+        else
+            vat_pham[so_luong_vat_pham].so_luong += so_luong;
+        vat_pham[so_luong_vat_pham].the = 0;
+    }
+    if (id == 3)
+    {
+        vat_pham[so_luong_vat_pham].id = 3;
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Trai nho");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
