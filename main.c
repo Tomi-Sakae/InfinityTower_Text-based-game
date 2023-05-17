@@ -169,13 +169,14 @@ void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
     puts(thoi_tiet);
 }
 
-void tui_do()
+void tui_do() // giao dien tui do
 {
+    int y_chon = 7;
     int y = 7;
     char lua_chon_menu;
     gotoxy(56, 5);
     printf("Tui do: ");
-    for (i = 0; i < so_luong_vat_pham; i++)
+    for (i = 0; i < so_luong_vat_pham; i++) // hien thi cac vat pham ma nguoi choi co
     {
         if (vat_pham[i].so_luong != 0)
         {
@@ -188,14 +189,44 @@ void tui_do()
             y += 2;
         }
     }
-    lua_chon_menu = getch();
-    switch (lua_chon_menu)
+    while (1) // vong lap lua chon vat pham
     {
-    case 'e':
-    {
-        return;
-        break;
-    }
+        gotoxy(56, y_chon);
+        printf("->");
+        lua_chon_menu = getch();
+        switch (lua_chon_menu)
+        {
+        case 'e':
+        {
+            return;
+            break;
+        }
+        case 'w':
+        {
+            if (y_chon > 7)
+            {
+                gotoxy(56, y_chon);
+                printf("  ");
+                y_chon -= 2;
+            }
+            break;
+        }
+        case 's':
+        {
+            if (y_chon < y - 2)
+            {
+                gotoxy(56, y_chon);
+                printf("  ");
+                y_chon += 2;
+            }
+            break;
+        }
+        case 'k':
+        {
+            
+            break;
+        }
+        }
     }
 }
 
