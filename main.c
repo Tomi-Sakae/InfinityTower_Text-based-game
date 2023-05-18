@@ -166,7 +166,7 @@ void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
     puts(tam_nhin);
     do_dai_chuoi[1] = strlen(tam_nhin); // hien thi chuoi tam nhin cua nhan vat
 
-    if (gio >= 6 && gio < 11)
+    if (gio >= 3 && gio < 11)
         strcpy(buoi, "Sang");
     if (gio >= 11 && gio < 13)
         strcpy(buoi, "Trua");
@@ -174,7 +174,7 @@ void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
         strcpy(buoi, "Chieu");
     if (gio >= 18 && gio < 24)
         strcpy(buoi, "Toi");
-    if (gio >= 0 && gio < 6)
+    if (gio >= 0 && gio < 3)
         strcpy(buoi, "Khuya");
     gotoxy(0, 0);
     printf("Buoi: ");
@@ -496,11 +496,11 @@ void thuc_hien_hanh_dong()
         them_vat_pham(1, 4);
     }
 
-    if (strcmp(vat_the[i_tam].ten, "khoi go") == 0)
-    {
-        strcpy(hanh_dong, "Ban vua chat go | + 1 khoi go");
-        them_vat_pham(1, 1);
-    }
+    //if (strcmp(vat_the[i_tam].ten, "khoi go") == 0)
+    //{
+    //    strcpy(hanh_dong, "Ban vua chat go | + 1 khoi go");
+    //    them_vat_pham(1, 1);
+    //}
 
     if (vat_the[i_tam].id == 2)
     {
