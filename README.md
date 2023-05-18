@@ -1,6 +1,6 @@
-MyCGame
+TextCraft
 
-Đây là game C của tôi: 
+Đây là game đầu tiên của mình viết bằng ngôn ngữ C:
 
 Dùng các nút w - a - s - d để di chuyển nhân vật.
 
