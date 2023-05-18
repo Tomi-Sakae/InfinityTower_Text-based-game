@@ -496,11 +496,11 @@ void thuc_hien_hanh_dong()
         them_vat_pham(1, 4);
     }
 
-    //if (strcmp(vat_the[i_tam].ten, "khoi go") == 0)
+    // if (strcmp(vat_the[i_tam].ten, "khoi go") == 0)
     //{
-    //    strcpy(hanh_dong, "Ban vua chat go | + 1 khoi go");
-    //    them_vat_pham(1, 1);
-    //}
+    //     strcpy(hanh_dong, "Ban vua chat go | + 1 khoi go");
+    //     them_vat_pham(1, 1);
+    // }
 
     if (vat_the[i_tam].id == 2)
     {
@@ -667,6 +667,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
             vat_pham[so_luong_vat_pham].so_luong += so_luong;
         vat_pham[so_luong_vat_pham].the = 1;
     }
+
     so_luong_vat_pham++;
 }
 
@@ -704,6 +705,7 @@ void xoa_vat_pham(int vi_tri_xoa) // xoa vat pham da het va dua cac vat pham phi
         vat_pham[i].the = vat_pham[i + 1].the;
     }
     so_luong_vat_pham--;
+    trang_bi = so_luong_vat_pham;
 }
 
 void an_thuc_an() // ham an thuc an
@@ -712,5 +714,8 @@ void an_thuc_an() // ham an thuc an
     {
         the_luc += 10;
         vat_pham[trang_bi].so_luong--;
+        if (vat_pham[trang_bi].so_luong == 0)
+            xoa_vat_pham(trang_bi);
+        strcpy(hanh_dong, "Ban vua an nho");
     }
 }
