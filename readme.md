@@ -10,4 +10,4 @@ Dùng nút p để dùng vật phẩm.
 
 Dùng nút e để mở túi đồ.
 
-Trong túi đồ dùng nút w - s để di chuyển mũi tên lựa chọn và dùng k để chọn vật phẩm tại vị trí mũi tên.
+Trong túi đồ dùng nút w - s để di chuyển mũi tên lựa chọn và dùng k để chọn vật phẩm tại vị trí mũi tên. 
