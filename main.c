@@ -5,26 +5,11 @@
 #include <pthread.h>
 #include <string.h>
 #include <stdlib.h>
+#include "du_lieu.h"
 
 char lua_chon;
-int x_nguoi_choi;
-int y_nguoi_choi;
 int x_tam, y_tam, i, j, i_tam, do_dai_chuoi[100];
-char hanh_dong[100] = "Ban dang dung yen";
-char tam_nhin[100];
-char tay_phai[100] = "Khong";
-char hien_thi[100];
-char buoi[100] = "Sang";
-char thoi_tiet[100] = "Nhieu may";
-int so_luong_vat_the = 0;
-int so_luong_vat_pham = 0;
-int trang_bi = 0;
-char nguoi_choi = '>';
-int huong_nguoi_choi = 4;
-int gio = 6;
-int phut = 0;
-int mau = 100;
-int the_luc = 100;
+int tiep_tuc = 0;
 
 void *thoi_gian(void *vargp) // luong chay thoi gian
 {
@@ -42,26 +27,6 @@ void *thoi_gian(void *vargp) // luong chay thoi gian
     }
     return NULL;
 }
-
-typedef struct khoi
-{
-    int id;
-    char ten[100];
-    int toa_do_x;
-    int toa_do_y;
-} khoi;
-
-khoi vat_the[1000];
-
-typedef struct doi_tuong
-{
-    int id;
-    char ten[100];
-    int so_luong;
-    int the;
-} doi_tuong;
-
-doi_tuong vat_pham[1000];
 
 int random(int minN, int maxN) // ham sinh so ngau nhien trong doan tu minN den maxN
 {
@@ -138,8 +103,14 @@ void thong_tin_nhan_vat()
     if (vat_pham[trang_bi].so_luong != 0)
     {
         gotoxy(66 + strlen(tay_phai), 10);
-        printf(" x ");
-        gotoxy(66 + strlen(tay_phai) + 3, 10);
+        if (sua_loi_file == 0)
+            printf(" x ");
+        else
+            printf("x ");
+        if (sua_loi_file == 0)
+            gotoxy(66 + strlen(tay_phai) + 3, 10);
+        else
+            gotoxy((66 + strlen(tay_phai) + 3) - 1, 10);
         printf("%d", vat_pham[trang_bi].so_luong);
     }
     do_dai_chuoi[5] = strlen(tay_phai) + so_luong_chu_so(vat_pham[trang_bi].so_luong, 0) + 3;
@@ -215,8 +186,14 @@ void tui_do() // giao dien tui do
             gotoxy(58, y);
             puts(vat_pham[i].ten);
             gotoxy(58 + strlen(vat_pham[i].ten), y);
-            printf(" x ");
-            gotoxy(58 + strlen(vat_pham[i].ten) + 3, y);
+            if (sua_loi_file == 0)
+                printf(" x ");
+            else
+                printf("x ");
+            if (sua_loi_file == 0)
+                gotoxy(58 + strlen(vat_pham[i].ten) + 3, y);
+            else
+                gotoxy((58 + strlen(vat_pham[i].ten) + 3) - 1, y);
             printf("%d", vat_pham[i].so_luong);
             y += 2;
         }
@@ -314,11 +291,13 @@ void cai_dat() // phan cai dat cua game
         {
             if (y_chon == 7)
             {
+                luu_du_lieu();
                 strcpy(hien_thi, "Luu du lieu thanh cong!");
                 return;
             }
             if (y_chon == 9)
             {
+                xoa_du_lieu();
                 strcpy(hien_thi, "Xoa du lieu thanh cong! - Vui long thoat ra de choi lai");
                 return;
             }
@@ -330,18 +309,17 @@ void cai_dat() // phan cai dat cua game
 
 void man_hinh_tieu_de() // man hinh xuat hien khi moi vao game
 {
-    gotoxy(5, 5);
-    printf("TextCraft Beta V0.2");
-    gotoxy(7, 7);
-    printf("Choi moi");
-    gotoxy(7, 9);
-    printf("Tiep tuc");
-    gotoxy(7, 11);
-    printf("Thoat");
-
     int y_chon = 7;
     while (1)
     {
+        gotoxy(5, 5);
+        printf("TextCraft Beta V0.2");
+        gotoxy(7, 7);
+        printf("Choi moi");
+        gotoxy(7, 9);
+        printf("Tiep tuc");
+        gotoxy(7, 11);
+        printf("Thoat");
         gotoxy(5, y_chon);
         printf("->");
         char lua_chon_menu = getch();
@@ -371,10 +349,29 @@ void man_hinh_tieu_de() // man hinh xuat hien khi moi vao game
         {
             if (y_chon == 7)
             {
+                xoa_du_lieu();
                 system("cls");
                 return;
             }
+            if (y_chon == 9)
+            {
+                system("cls");
+                char kt_tam;
+                f = fopen("save.txt", "r");
+                kt_tam = fgetc(f);
+                if (kt_tam == 'n') // kiem tra du lieu cua game co rong hay khong
+                    printf("Khong co du lieu da luu truoc do...");
+                else
+                {
+                    tiep_tuc = 1;
+                    tai_du_lieu();
+                    system("cls");
+                    return;
+                }
 
+                getch();
+                system("cls");
+            }
             if (y_chon == 11)
                 exit(1);
             break;
@@ -399,40 +396,42 @@ void an_thuc_an();
 int main()
 {
     man_hinh_tieu_de();
-    srand((int)time(0));
-    so_luong_vat_the = random(25, 50);
-
-    x_nguoi_choi = random(7, 52);
-    y_nguoi_choi = random(6, 20);
-
-    while (1)
+    if (tiep_tuc == 0)
     {
-        for (i = 0; i < so_luong_vat_the; i++) // nhom lenh tao cay o toa do ngau nhien
-        {
-            vat_the[i].toa_do_x = random(8, 52);
-            vat_the[i].toa_do_y = random(6, 20);
+        srand((int)time(0));
+        so_luong_vat_the = random(25, 50);
 
-            if (vat_the[i].toa_do_x == x_nguoi_choi && vat_the[i].toa_do_y == y_nguoi_choi)
-                x_nguoi_choi--; // sua loi cay xuat hien ngay vi tri nguoi choi
-        }
+        x_nguoi_choi = random(7, 52);
+        y_nguoi_choi = random(6, 20);
 
-        int kiem_tra_so_luong = 0;
-        for (i = 0; i < so_luong_vat_the; i++) // nhom lenh kiem tra cac cay chong len nhau
+        while (1)
         {
-            int kt = 0;
-            for (j = 0; j < so_luong_vat_the; j++)
+            for (i = 0; i < so_luong_vat_the; i++) // nhom lenh tao cay o toa do ngau nhien
             {
-                if (vat_the[j].toa_do_x == vat_the[i].toa_do_x && vat_the[j].toa_do_y == vat_the[i].toa_do_y)
-                    kt++;
-            }
-            if (kt >= 2)
-                break;
-            kiem_tra_so_luong++;
-        }
-        if (kiem_tra_so_luong == so_luong_vat_the)
-            break;
-    }
+                vat_the[i].toa_do_x = random(8, 52);
+                vat_the[i].toa_do_y = random(6, 20);
 
+                if (vat_the[i].toa_do_x == x_nguoi_choi && vat_the[i].toa_do_y == y_nguoi_choi)
+                    x_nguoi_choi--; // sua loi cay xuat hien ngay vi tri nguoi choi
+            }
+
+            int kiem_tra_so_luong = 0;
+            for (i = 0; i < so_luong_vat_the; i++) // nhom lenh kiem tra cac cay chong len nhau
+            {
+                int kt = 0;
+                for (j = 0; j < so_luong_vat_the; j++)
+                {
+                    if (vat_the[j].toa_do_x == vat_the[i].toa_do_x && vat_the[j].toa_do_y == vat_the[i].toa_do_y)
+                        kt++;
+                }
+                if (kt >= 2)
+                    break;
+                kiem_tra_so_luong++;
+            }
+            if (kiem_tra_so_luong == so_luong_vat_the)
+                break;
+        }
+    }
     for (i = 0; i < so_luong_vat_the; i++) // tao vat the
     {
         gotoxy(vat_the[i].toa_do_x, vat_the[i].toa_do_y); // tao vat the o vi tri ngau nhien
