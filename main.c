@@ -103,7 +103,7 @@ void thong_tin_nhan_vat()
     if (vat_pham[trang_bi].so_luong != 0)
     {
         gotoxy(66 + strlen(tay_phai), 10);
-        if (sua_loi_file == 0)
+        if (sua_loi_file == 0) // sua loi tai du lieu bi du ra \n
             printf(" x ");
         else
             printf("x ");
@@ -779,7 +779,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
     if (id == 1)
     {
         vat_pham[so_luong_vat_pham].id = 1;
-        if (sua_loi_file == 0)
+        if (sua_loi_file == 0) // sua loi vat pham moi dua vao khi tai du lieu xung dot voi sua loi file thieu \n
             strcpy(vat_pham[so_luong_vat_pham].ten, "Khoi go");
         else
             strcpy(vat_pham[so_luong_vat_pham].ten, "Khoi go\n");

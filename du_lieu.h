@@ -60,7 +60,7 @@ void luu_du_lieu()
     fputs(tam_nhin, f);
     fprintf(f, "\n");
     fputs(tay_phai, f);
-    if (sua_loi_file == 0)
+    if (sua_loi_file == 0) // dieu chinh khoang cach luu game thich hop
         fprintf(f, "\n");
     if (sua_loi_file == 1 && strcmp(tay_phai, "Khong") == 0)
         fprintf(f, "\n");
@@ -122,7 +122,7 @@ void tai_du_lieu()
     fscanf(f, "%d ", &mau);
     fscanf(f, "%d ", &the_luc);
     fgets(hanh_dong, sizeof hanh_dong, f);
-    hanh_dong[strcspn(hanh_dong, "\n")] = 0;
+    hanh_dong[strcspn(hanh_dong, "\n")] = 0; // sua loi du dau \n khi dung fgets
     fgets(tam_nhin, sizeof tam_nhin, f);
     tam_nhin[strcspn(tam_nhin, "\n")] = 0;
     fgets(tay_phai, sizeof tay_phai, f);
