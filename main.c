@@ -319,6 +319,8 @@ void man_hinh_tieu_de() // man hinh xuat hien khi moi vao game
         gotoxy(7, 9);
         printf("Tiep tuc");
         gotoxy(7, 11);
+        printf("Huong dan");
+        gotoxy(7, 13);
         printf("Thoat");
         gotoxy(5, y_chon);
         printf("->");
@@ -337,7 +339,7 @@ void man_hinh_tieu_de() // man hinh xuat hien khi moi vao game
         }
         case 's':
         {
-            if (y_chon < 11)
+            if (y_chon < 13)
             {
                 gotoxy(5, y_chon);
                 printf("  ");
@@ -373,6 +375,28 @@ void man_hinh_tieu_de() // man hinh xuat hien khi moi vao game
                 system("cls");
             }
             if (y_chon == 11)
+            {
+                system("cls");
+                gotoxy(5, 5);
+                printf("Huong dan: ");
+                gotoxy(7, 7);
+                printf("Dung cac nut w - a - s - d de di chuyen nhan vat.");
+                gotoxy(7, 9);
+                printf("Dung cac phim mui ten de dieu chinh huong cua nhan vat.");
+                gotoxy(7, 11);
+                printf("Dung nut k de tuong tac voi vat the.");
+                gotoxy(7, 13);
+                printf("Dung nut p de dung vat pham.");
+                gotoxy(7, 15);
+                printf("Dung nut e de mo tui do");
+                gotoxy(7, 17);
+                printf("Tai cac giao dien menu dung w - s hoac a - d de di chuyen mui ten");
+                gotoxy(7, 18);
+                printf("va dung nut k de lua chon tinh nang ma mui ten chi vao.");
+                getch();
+                system("cls");
+            }
+            if (y_chon == 13)
                 exit(1);
             break;
         }
