@@ -24,6 +24,8 @@ typedef struct khoi
 {
     int id;
     char ten[100];
+    int do_ben;
+    int do_ben_toi_da;
     int toa_do_x;
     int toa_do_y;
 } khoi;
@@ -82,6 +84,8 @@ void luu_du_lieu()
     for (i = 0; i < so_luong_vat_the; i++)
     {
         fprintf(f, "%d ", vat_the[i].id);
+        fprintf(f, "%d ", vat_the[i].do_ben);
+        fprintf(f, "%d ", vat_the[i].do_ben_toi_da);
         fprintf(f, "%d ", vat_the[i].toa_do_x);
         fprintf(f, "%d ", vat_the[i].toa_do_y);
     }
@@ -150,6 +154,8 @@ void tai_du_lieu()
     for (i = 0; i < so_luong_vat_the; i++)
     {
         fscanf(f, "%d ", &vat_the[i].id);
+        fscanf(f, "%d ", &vat_the[i].do_ben);
+        fscanf(f, "%d ", &vat_the[i].do_ben_toi_da);
         fscanf(f, "%d ", &vat_the[i].toa_do_x);
         fscanf(f, "%d ", &vat_the[i].toa_do_y);
     }

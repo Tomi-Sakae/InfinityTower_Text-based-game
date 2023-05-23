@@ -129,6 +129,12 @@ void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
     gotoxy(5, 3);
     puts(tam_nhin);
     do_dai_chuoi[1] = strlen(tam_nhin); // hien thi chuoi tam nhin cua nhan vat
+    if (i_tam != 0)
+    {
+        gotoxy(5+do_dai_chuoi[1],3);
+        printf(" %d/%d", vat_the[i_tam].do_ben, vat_the[i_tam].do_ben_toi_da);
+        do_dai_chuoi[1] += 1 + so_luong_chu_so(vat_the[i_tam].do_ben, 0) + 1 + so_luong_chu_so(vat_the[i_tam].do_ben_toi_da, 0);
+    }
 
     if (phut >= 60)
     {
@@ -512,18 +518,24 @@ int main()
             {
                 strcpy(vat_the[i].ten, "cai cay");
                 vat_the[i].id = 1;
+                vat_the[i].do_ben_toi_da = 10;
+                vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
                 printf("C"); // cai cay
             }
             if (vat_the_ban_dau == 2)
             {
                 strcpy(vat_the[i].ten, "cuc da");
                 vat_the[i].id = 2;
+                vat_the[i].do_ben_toi_da = 10;
+                vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
                 printf("D"); // cuc da
             }
             if (vat_the_ban_dau == 3)
             {
                 strcpy(vat_the[i].ten, "bui nho");
                 vat_the[i].id = 3;
+                vat_the[i].do_ben_toi_da = 4;
+                vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
                 printf("N"); // bui nho
             }
         }
@@ -713,9 +725,9 @@ void thuc_hien_hanh_dong()
         strcpy(hanh_dong, "Ban vua nho mam cay | + 1 mam cay");
         them_vat_pham(4, 1);
         int tam = so_luong_hoi;
-        for(i = 0; i < tam; i++)
+        for (i = 0; i < tam; i++)
         {
-            if(tg_hoi_vat_the[i].vi_tri == i_tam)
+            if (tg_hoi_vat_the[i].vi_tri == i_tam)
             {
                 for (j = i; j < tam; j++)
                 {
@@ -755,7 +767,7 @@ int kiem_tra_vat_the() // kiem tra vat the o gan nguoi choi
             {
                 strcat(tam_nhin, vat_the[i].ten);
                 i_tam = i; // gan i tam de kiem tra vat the va id vat the
-                return 4; // tra ve huong cua vat the so voi nguoi choi
+                return 4;  // tra ve huong cua vat the so voi nguoi choi
             }
         }
         if (huong_nguoi_choi == 2)
@@ -787,6 +799,7 @@ int kiem_tra_vat_the() // kiem tra vat the o gan nguoi choi
         }
     }
     strcpy(tam_nhin, " "); // nguoi choi khong o gan bat ky vat the nao
+    i_tam = 0;
     return 0;
 }
 
@@ -825,6 +838,8 @@ void thuc_hien_dat_khoi()
         strcpy(hanh_dong, "Ban vua dat mam cay");
         strcpy(vat_the[so_luong_vat_the].ten, "mam cay");
         vat_the[so_luong_vat_the].id = 4;
+        vat_the[so_luong_vat_the].do_ben_toi_da = 1;
+        vat_the[so_luong_vat_the].do_ben = vat_the[so_luong_vat_the].do_ben_toi_da;
         so_luong_vat_the++;
         them_vat_pham(4, -1);
         tg_hoi_vat_the[so_luong_hoi].thoi_gian = random(5, 10); // tao thoi gian hoi cho vat the
@@ -857,6 +872,8 @@ void bo_lo() // ham kiem tra toa do cua mang vat_the co rong hay khong
             vat_the[i].toa_do_y = vat_the[so_luong_vat_the].toa_do_y;
             strcpy(vat_the[i].ten, vat_the[so_luong_vat_the].ten);
             vat_the[i].id = vat_the[so_luong_vat_the].id;
+            vat_the[i].do_ben = vat_the[so_luong_vat_the].do_ben;
+            vat_the[i].do_ben_toi_da = vat_the[so_luong_vat_the].do_ben_toi_da;
             tg_hoi_vat_the[so_luong_hoi].vi_tri = i; // cap nhat vi tri moi neu dung ham bo_lo
             return;
         }
