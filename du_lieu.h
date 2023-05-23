@@ -36,6 +36,7 @@ typedef struct doi_tuong
 {
     int id;
     char ten[100];
+    int gop;
     int so_luong;
     int the;
 } doi_tuong;
@@ -98,6 +99,7 @@ void luu_du_lieu()
     for (i = 0; i < so_luong_vat_pham; i++)
     {
         fprintf(f, "%d ", vat_pham[i].id);
+        fprintf(f, "%d ", vat_pham[i].gop);
         fprintf(f, "%d ", vat_pham[i].so_luong);
         fprintf(f, "%d ", vat_pham[i].the);
     }
@@ -165,6 +167,7 @@ void tai_du_lieu()
     for (i = 0; i < so_luong_vat_pham; i++)
     {
         fscanf(f, "%d ", &vat_pham[i].id);
+        fscanf(f, "%d ", &vat_pham[i].gop);
         fscanf(f, "%d ", &vat_pham[i].so_luong);
         fscanf(f, "%d ", &vat_pham[i].the);
     }
