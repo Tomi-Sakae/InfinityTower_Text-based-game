@@ -868,12 +868,12 @@ void thuc_hien_dat_khoi()
         vat_the[so_luong_vat_the].id = 4;
         vat_the[so_luong_vat_the].do_ben_toi_da = 1;
         vat_the[so_luong_vat_the].do_ben = vat_the[so_luong_vat_the].do_ben_toi_da;
-        so_luong_vat_the++;
         them_vat_pham(4, -1);
         tg_hoi_vat_the[so_luong_hoi].thoi_gian = random(5, 10); // tao thoi gian hoi cho vat the
         tg_hoi_vat_the[so_luong_hoi].thoi_gian *= 30;           // chuyen gio thanh phut
         tg_hoi_vat_the[so_luong_hoi].id = 1;
         tg_hoi_vat_the[so_luong_hoi].vi_tri = so_luong_vat_the;
+        so_luong_vat_the++;
         bo_lo();
         so_luong_hoi++;
     }
