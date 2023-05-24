@@ -11,6 +11,21 @@ char lua_chon;
 int x_tam, y_tam, i, j, i_tam, do_dai_chuoi[100];
 int tiep_tuc = 0;
 
+void di_chuyen_va_hanh_dong();
+void va_cham();
+void thuc_hien_hanh_dong();
+int kiem_tra_vat_the();
+void thuc_hien_dat_khoi();
+int kiem_tra_vi_tri_vat_the(int x, int y);
+void bo_lo();
+void chuyen_chuc_nang();
+void them_vat_pham(int id, int so_luong);
+void tao_moi_vat_pham(int id, int so_luong);
+void xoa_vat_pham(int vi_tri_xoa);
+void an_thuc_an();
+void xoa_vat_the();
+int kiem_tra_vat_pham(int id, int so_luong);
+
 int random(int minN, int maxN) // ham sinh so ngau nhien trong doan tu minN den maxN
 {
     return minN + rand() % (maxN + 1 - minN);
@@ -251,6 +266,78 @@ void tui_do() // giao dien tui do
     }
 }
 
+void che_tao() // giao dien che tao
+{
+    gotoxy(56, 5);
+    printf("Che tao: ");
+    gotoxy(58, 7);
+    printf("Riu go x 1 | Ton 5 khoi go");
+    gotoxy(58, 9);
+    printf("Cup go x 1 | Ton 5 khoi go");
+
+    int y_chon = 7;
+    while (1)
+    {
+        gotoxy(56, y_chon);
+        printf("->");
+        char lua_chon_menu = getch();
+        switch (lua_chon_menu)
+        {
+        case 'c':
+        {
+            return;
+            break;
+        }
+        case 'w':
+        {
+            if (y_chon > 7)
+            {
+                gotoxy(56, y_chon);
+                printf("  ");
+                y_chon -= 2;
+            }
+            break;
+        }
+        case 's':
+        {
+            if (y_chon < 9)
+            {
+                gotoxy(56, y_chon);
+                printf("  ");
+                y_chon += 2;
+            }
+            break;
+        }
+        case 'k':
+        {
+            if (y_chon == 7)
+            {
+                if (kiem_tra_vat_pham(1, 5) == 1)
+                {
+                    them_vat_pham(7, 1);
+                    strcpy(hien_thi, "Ban nhan duoc 1 riu go");
+                }
+                else
+                    strcpy(hien_thi, "Ban khong du tai nguyen!");
+                return;
+            }
+            if (y_chon == 9)
+            {
+                if (kiem_tra_vat_pham(1, 5) == 1)
+                {
+                    them_vat_pham(8, 1);
+                    strcpy(hien_thi, "Ban nhan duoc 1 cup go");
+                }
+                else
+                    strcpy(hien_thi, "Ban khong du tai nguyen!");
+                return;
+            }
+            break;
+        }
+        }
+    }
+}
+
 void cai_dat() // phan cai dat cua game
 {
     gotoxy(56, 5);
@@ -461,19 +548,7 @@ void tai_thoi_gian_hoi() // tai thoi gian hoi phuc cua cac vat the
     }
 }
 
-void di_chuyen_va_hanh_dong();
-void va_cham();
-void thuc_hien_hanh_dong();
-int kiem_tra_vat_the();
-void thuc_hien_dat_khoi();
-int kiem_tra_vi_tri_vat_the(int x, int y);
-void bo_lo();
-void chuyen_chuc_nang();
-void them_vat_pham(int id, int so_luong);
-void tao_moi_vat_pham(int id, int so_luong);
-void xoa_vat_pham(int vi_tri_xoa);
-void an_thuc_an();
-void xoa_vat_the();
+/*-------------------------------------------------------------------------------------------------------*/
 
 int main()
 {
@@ -646,6 +721,13 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
     {
         chuyen_chuc_nang();
         tui_do();
+        chuyen_chuc_nang();
+        break;
+    }
+    case 'c':
+    {
+        chuyen_chuc_nang();
+        che_tao();
         chuyen_chuc_nang();
         break;
     }
@@ -1017,6 +1099,34 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
             vat_pham[so_luong_vat_pham].so_luong += so_luong;
         vat_pham[so_luong_vat_pham].the = 4; // 4 la vat pham dung de tac dong len cuc da
     }
+    if (id == 7)
+    {
+        vat_pham[so_luong_vat_pham].id = 7;
+        vat_pham[so_luong_vat_pham].gop = 1;
+        if (sua_loi_file == 0)
+            strcpy(vat_pham[so_luong_vat_pham].ten, "Riu go");
+        else
+            strcpy(vat_pham[so_luong_vat_pham].ten, "Riu go\n");
+        if (so_luong_vat_pham == 0)
+            vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
+        else
+            vat_pham[so_luong_vat_pham].so_luong += so_luong;
+        vat_pham[so_luong_vat_pham].the = 3; // 3 la vat pham dung de tac dong len cay
+    }
+    if (id == 8)
+    {
+        vat_pham[so_luong_vat_pham].id = 8;
+        vat_pham[so_luong_vat_pham].gop = 1;
+        if (sua_loi_file == 0)
+            strcpy(vat_pham[so_luong_vat_pham].ten, "Cup go");
+        else
+            strcpy(vat_pham[so_luong_vat_pham].ten, "Cup go\n");
+        if (so_luong_vat_pham == 0)
+            vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
+        else
+            vat_pham[so_luong_vat_pham].so_luong += so_luong;
+        vat_pham[so_luong_vat_pham].the = 4; // 4 la vat pham dung de tac dong len cuc da
+    }
 
     so_luong_vat_pham++;
 }
@@ -1034,6 +1144,8 @@ void them_vat_pham(int id, int so_luong) // them vat pham vua nhan vao nguoi cho
         {
             if (id == vat_pham[i].id) // kiem tra vat pham nay nguoi choi co so huu chua
             {
+                if (vat_pham[i].gop == 1) // neu vat pham khong gop duoc thi tao vat pham moi
+                    break;
                 vat_pham[i].so_luong += so_luong;
                 if (vat_pham[i].so_luong == 0)
                     xoa_vat_pham(i);
@@ -1068,4 +1180,20 @@ void an_thuc_an() // ham an thuc an
             xoa_vat_pham(trang_bi);
         strcpy(hanh_dong, "Ban vua an nho");
     }
+}
+
+int kiem_tra_vat_pham(int id, int so_luong) // ham kiem tra vat the voi id va so luong
+{
+    for (i = 0; i < so_luong_vat_pham; i++)
+    {
+        if (id == vat_pham[i].id)
+        {
+            if (vat_pham[i].so_luong >= so_luong)
+            {
+                them_vat_pham(id, -so_luong);
+                return 1;
+            }
+        }
+    }
+    return 0;
 }
