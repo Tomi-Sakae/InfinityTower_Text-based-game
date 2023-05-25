@@ -31,6 +31,12 @@ int random(int minN, int maxN) // ham sinh so ngau nhien trong doan tu minN den 
     return minN + rand() % (maxN + 1 - minN);
 }
 
+void TextColor(int x) // ham in chu mau trong c
+{
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(h, x);
+}
+
 void gotoxy(int x, int y) // ham di chuyen con tro toi vi tri x y
 {
     static HANDLE h = NULL;
@@ -192,15 +198,19 @@ void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
         exit(1);
 }
 
+int trang = 1;
+int sl_vat_pham = 0; // cac bien toan cuc danh cho ham tui do
+int kt_tui_do = 0;
 void tui_do() // giao dien tui do
 {
+    float so_trang;
     int y_chon = 7;
     int y = 7;
-    int vi_tri = 0;
+    int vi_tri = sl_vat_pham;
     char lua_chon_menu;
     gotoxy(56, 5);
     printf("Tui do: ");
-    for (i = 0; i < so_luong_vat_pham; i++) // hien thi cac vat pham ma nguoi choi co
+    for (i = sl_vat_pham; i < so_luong_vat_pham; i++) // hien thi cac vat pham ma nguoi choi co
     {
         gotoxy(58, y);
         puts(vat_pham[i].ten);
@@ -218,7 +228,23 @@ void tui_do() // giao dien tui do
             printf("%d", vat_pham[i].so_luong);
         }
         y += 2;
+        if (y >= 21)
+            break;
     }
+    so_trang = (so_luong_vat_pham / 7) + 1;
+    if (so_luong_vat_pham >= 8)
+    {
+        if (trang > 1)
+        {
+            gotoxy(56, 21);
+            printf("<");
+        }
+        gotoxy(58, 21);
+        printf("%d/%.0f", trang, so_trang);
+        if (trang < so_trang)
+            printf(" >");
+    }
+
     while (1) // vong lap lua chon vat pham
     {
         if (vat_pham[0].so_luong != 0) // fix loi du nut di chuyen khi khong co do
@@ -226,7 +252,8 @@ void tui_do() // giao dien tui do
             gotoxy(56, y_chon);
             printf("->");
         }
-        lua_chon_menu = getch();
+        if (kt_tui_do == 0)
+            lua_chon_menu = getch();
         switch (lua_chon_menu)
         {
         case 'e':
@@ -256,24 +283,55 @@ void tui_do() // giao dien tui do
             }
             break;
         }
+        case 'a':
+        {
+            if (trang > 1)
+            {
+                chuyen_chuc_nang();
+                sl_vat_pham -= 7;
+                trang--;
+                tui_do();
+            }
+            break;
+        }
+        case 'd':
+        {
+            if (trang < so_trang)
+            {
+                chuyen_chuc_nang();
+                sl_vat_pham += 7;
+                trang++;
+                tui_do();
+            }
+            break;
+        }
         case 'k':
         {
-            trang_bi = y_chon - (7 + vi_tri); // du lieu trang bi duoc lay tu lua chon cua nguoi choi
+
+            trang_bi = vi_tri; // du lieu trang bi duoc lay tu lua chon cua nguoi choi
+            kt_tui_do = 1;
             return;
             break;
         }
         }
+        if (kt_tui_do == 1)
+            break;
     }
 }
 
 void che_tao() // giao dien che tao
 {
+    int kt = 7; // kiem tra mau cua chu so
     gotoxy(56, 5);
     printf("Che tao: ");
+    if (kiem_tra_vat_pham(1, 5) != 1) // neu nguoi choi khong co du vat pham thi hien chu do
+        kt = 4;
+    TextColor(kt);
     gotoxy(58, 7);
     printf("Riu go x 1 | Ton 5 khoi go");
     gotoxy(58, 9);
     printf("Cup go x 1 | Ton 5 khoi go");
+    TextColor(7);
 
     int y_chon = 7;
     while (1)
@@ -312,7 +370,7 @@ void che_tao() // giao dien che tao
         {
             if (y_chon == 7)
             {
-                if (kiem_tra_vat_pham(1, 5) == 1)
+                if (kt == 7)
                 {
                     them_vat_pham(7, 1);
                     strcpy(hien_thi, "Ban nhan duoc 1 riu go");
@@ -323,7 +381,7 @@ void che_tao() // giao dien che tao
             }
             if (y_chon == 9)
             {
-                if (kiem_tra_vat_pham(1, 5) == 1)
+                if (kt == 7)
                 {
                     them_vat_pham(8, 1);
                     strcpy(hien_thi, "Ban nhan duoc 1 cup go");
@@ -345,7 +403,9 @@ void cai_dat() // phan cai dat cua game
     gotoxy(58, 7);
     printf("Luu du lieu");
     gotoxy(58, 9);
+    TextColor(4); // them mau do cho dong chu
     printf("Xoa du lieu");
+    TextColor(7);
 
     int y_chon = 7;
     while (1)
@@ -720,6 +780,9 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
     case 'e':
     {
         chuyen_chuc_nang();
+        trang = 1;
+        sl_vat_pham = 0; // reset lai cac bien dung cho tui do
+        kt_tui_do = 0;
         tui_do();
         chuyen_chuc_nang();
         break;
@@ -826,6 +889,7 @@ void thuc_hien_hanh_dong()
     if (vat_the[i_tam].id == 4)
     {
         strcpy(hanh_dong, "Ban vua nho mam cay | + 1 mam cay");
+        xoa_vat_the();
         them_vat_pham(4, 1);
         int tam = so_luong_hoi;
         for (i = 0; i < tam; i++)
@@ -1165,6 +1229,7 @@ void xoa_vat_pham(int vi_tri_xoa) // xoa vat pham da het va dua cac vat pham phi
         strcpy(vat_pham[i].ten, vat_pham[i + 1].ten);
         vat_pham[i].so_luong = vat_pham[i + 1].so_luong;
         vat_pham[i].the = vat_pham[i + 1].the;
+        vat_pham[i].gop = vat_pham[i + 1].gop;
     }
     so_luong_vat_pham--;
     trang_bi = so_luong_vat_pham;
