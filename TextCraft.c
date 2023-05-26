@@ -140,8 +140,6 @@ void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
     gotoxy(20, 2);
     for (i = 0; i <= do_dai_chuoi[6]; i++) // xoa chuoi hien thi truoc do
         printf(" ");
-    if (do_dai_chuoi[6] > 1)
-        strcpy(hien_thi, " ");
 
     gotoxy(5, 23);
     puts(hanh_dong);
@@ -231,7 +229,7 @@ void tui_do() // giao dien tui do
         if (y >= 21)
             break;
     }
-    so_trang = (so_luong_vat_pham / 7) + 1;
+    so_trang = (so_luong_vat_pham / 8) + 1;
     if (so_luong_vat_pham >= 8)
     {
         if (trang > 1)
@@ -258,6 +256,7 @@ void tui_do() // giao dien tui do
         {
         case 'e':
         {
+            kt_tui_do = 1;
             return;
             break;
         }
@@ -717,6 +716,7 @@ int main()
         x_tam = x_nguoi_choi; // luu toa do cua nguoi choi de xoa nguoi choi khi di chuyen
         y_tam = y_nguoi_choi;
 
+        strcpy(hien_thi," "); // xoa chuoi hien thi
         di_chuyen_va_hanh_dong();
 
         gotoxy(x_tam, y_tam);
@@ -865,6 +865,8 @@ void xoa_vat_the()
 
 void thuc_hien_hanh_dong()
 {
+    char so_thanh_chuoi[100];                                         // bien chuyen so thanh chuoi
+    sprintf(so_thanh_chuoi, " %d ", vat_pham[trang_bi].suc_cong_pha); // lenh chuyen so thanh chuoi
     if (vat_the[i_tam].id == 1)
     {
         if (vat_pham[trang_bi].the != 3 || strcmp(tay_phai, "Khong") == 0)
@@ -873,8 +875,10 @@ void thuc_hien_hanh_dong()
             return;
         }
         the_luc -= 5;
-        strcpy(hanh_dong, "Ban vua chat cay | + 1 khoi go");
-        vat_the[i_tam].do_ben--;
+        strcpy(hanh_dong, "Ban vua chat cay | +");
+        strcat(hanh_dong, so_thanh_chuoi); // hien thi suc cong pha cua trang bi hien tai
+        strcat(hanh_dong, "khoi go");
+        vat_the[i_tam].do_ben -= vat_pham[trang_bi].suc_cong_pha;
         if (vat_the[i_tam].do_ben == 0)
         {
             strcpy(hanh_dong, "Ban vua chat gay ca cay | + 11 khoi go | + 4 mam cay");
@@ -883,7 +887,7 @@ void thuc_hien_hanh_dong()
             them_vat_pham(4, 4);
             return;
         }
-        them_vat_pham(1, 1);
+        them_vat_pham(1, vat_pham[trang_bi].suc_cong_pha);
     }
 
     if (vat_the[i_tam].id == 4)
@@ -917,8 +921,10 @@ void thuc_hien_hanh_dong()
             return;
         }
         the_luc -= 10;
-        strcpy(hanh_dong, "Ban vua dao da | + 1 cuc da");
-        vat_the[i_tam].do_ben--;
+        strcpy(hanh_dong, "Ban vua dao da | +");
+        strcat(hanh_dong, so_thanh_chuoi);
+        strcat(hanh_dong, "cuc da");
+        vat_the[i_tam].do_ben -= vat_pham[trang_bi].suc_cong_pha;
         if (vat_the[i_tam].do_ben == 0)
         {
             strcpy(hanh_dong, "Ban vua dao be cuc da | + 5 cuc da");
@@ -926,7 +932,7 @@ void thuc_hien_hanh_dong()
             them_vat_pham(2, 5);
             return;
         }
-        them_vat_pham(2, 1);
+        them_vat_pham(2, vat_pham[trang_bi].suc_cong_pha);
     }
 
     if (vat_the[i_tam].id == 3)
@@ -1082,6 +1088,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
     if (id == 1)
     {
         vat_pham[so_luong_vat_pham].id = 1;
+        vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].gop = 0; // 0 la vat pham co the gop lai
         if (sua_loi_file == 0)               // sua loi vat pham moi dua vao khi tai du lieu xung dot voi sua loi file thieu \n
             strcpy(vat_pham[so_luong_vat_pham].ten, "Khoi go");
@@ -1096,6 +1103,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
     if (id == 2)
     {
         vat_pham[so_luong_vat_pham].id = 2;
+        vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].gop = 0;
         if (sua_loi_file == 0)
             strcpy(vat_pham[so_luong_vat_pham].ten, "Cuc da");
@@ -1110,6 +1118,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
     if (id == 3)
     {
         vat_pham[so_luong_vat_pham].id = 3;
+        vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].gop = 0;
         if (sua_loi_file == 0)
             strcpy(vat_pham[so_luong_vat_pham].ten, "Chum nho");
@@ -1124,6 +1133,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
     if (id == 4)
     {
         vat_pham[so_luong_vat_pham].id = 4;
+        vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].gop = 0;
         if (sua_loi_file == 0)
             strcpy(vat_pham[so_luong_vat_pham].ten, "Mam cay");
@@ -1138,6 +1148,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
     if (id == 5)
     {
         vat_pham[so_luong_vat_pham].id = 5;
+        vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].gop = 1; // 1 la vat pham khong the gop duoc
         if (sua_loi_file == 0)
             strcpy(vat_pham[so_luong_vat_pham].ten, "Riu ri set");
@@ -1152,6 +1163,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
     if (id == 6)
     {
         vat_pham[so_luong_vat_pham].id = 6;
+        vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].gop = 1;
         if (sua_loi_file == 0)
             strcpy(vat_pham[so_luong_vat_pham].ten, "Cup ri set");
@@ -1166,6 +1178,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
     if (id == 7)
     {
         vat_pham[so_luong_vat_pham].id = 7;
+        vat_pham[so_luong_vat_pham].suc_cong_pha = 2;
         vat_pham[so_luong_vat_pham].gop = 1;
         if (sua_loi_file == 0)
             strcpy(vat_pham[so_luong_vat_pham].ten, "Riu go");
@@ -1180,6 +1193,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
     if (id == 8)
     {
         vat_pham[so_luong_vat_pham].id = 8;
+        vat_pham[so_luong_vat_pham].suc_cong_pha = 2;
         vat_pham[so_luong_vat_pham].gop = 1;
         if (sua_loi_file == 0)
             strcpy(vat_pham[so_luong_vat_pham].ten, "Cup go");
@@ -1230,6 +1244,7 @@ void xoa_vat_pham(int vi_tri_xoa) // xoa vat pham da het va dua cac vat pham phi
         vat_pham[i].so_luong = vat_pham[i + 1].so_luong;
         vat_pham[i].the = vat_pham[i + 1].the;
         vat_pham[i].gop = vat_pham[i + 1].gop;
+        vat_pham[i].suc_cong_pha = vat_pham[i + 1].suc_cong_pha;
     }
     so_luong_vat_pham--;
     trang_bi = so_luong_vat_pham;
