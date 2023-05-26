@@ -60,6 +60,7 @@ void game_over() // ket thuc game
 {
     system("cls");
     printf("Game Over!");
+    sleep(5);
     exit(1);
 }
 
@@ -193,7 +194,10 @@ void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
     do_dai_chuoi[6] = strlen(hien_thi);
 
     if (strcmp(hien_thi, "Xoa du lieu thanh cong! - Vui long thoat ra de choi lai") == 0)
+    {
+        sleep(5);
         exit(1);
+    }
 }
 
 int trang = 1;
@@ -716,7 +720,7 @@ int main()
         x_tam = x_nguoi_choi; // luu toa do cua nguoi choi de xoa nguoi choi khi di chuyen
         y_tam = y_nguoi_choi;
 
-        strcpy(hien_thi," "); // xoa chuoi hien thi
+        strcpy(hien_thi, " "); // xoa chuoi hien thi
         di_chuyen_va_hanh_dong();
 
         gotoxy(x_tam, y_tam);
