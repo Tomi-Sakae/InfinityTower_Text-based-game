@@ -885,10 +885,18 @@ void thuc_hien_hanh_dong()
         vat_the[i_tam].do_ben -= vat_pham[trang_bi].suc_cong_pha;
         if (vat_the[i_tam].do_ben == 0)
         {
-            strcpy(hanh_dong, "Ban vua chat gay ca cay | + 11 khoi go | + 4 mam cay");
+            int mam_cay = random(0, 4); // bien tao mam cay ngau nhien khi chat het cay
+            sprintf(so_thanh_chuoi, " %d ", mam_cay);
+            strcpy(hanh_dong, "Ban vua chat gay ca cay | + 11 khoi go");
+            if (mam_cay != 0)
+            {
+                strcat(hanh_dong, "| +");
+                strcat(hanh_dong, so_thanh_chuoi);
+                strcat(hanh_dong, "mam cay");
+                them_vat_pham(4, mam_cay);
+            }
             xoa_vat_the();
             them_vat_pham(1, 11);
-            them_vat_pham(4, 4);
             return;
         }
         them_vat_pham(1, vat_pham[trang_bi].suc_cong_pha);
