@@ -125,7 +125,7 @@ void luu_du_lieu()
 void xoa_du_lieu()
 {
     f = fopen("save.txt", "w");
-    fputc('n', f);
+    fputc(' ', f);
     fclose(f);
 }
 

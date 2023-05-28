@@ -540,7 +540,7 @@ void man_hinh_tieu_de() // man hinh xuat hien khi moi vao game
                 char kt_tam;
                 f = fopen("save.txt", "r");
                 kt_tam = fgetc(f);
-                if (kt_tam == 'n') // kiem tra du lieu cua game co rong hay khong
+                if (kt_tam == ' ') // kiem tra du lieu cua game co rong hay khong
                     printf("Khong co du lieu da luu truoc do...");
                 else
                 {
