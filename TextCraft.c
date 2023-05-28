@@ -376,6 +376,7 @@ void che_tao() // giao dien che tao
                 if (kt == 7)
                 {
                     them_vat_pham(7, 1);
+                    them_vat_pham(1, -5);
                     strcpy(hien_thi, "Ban nhan duoc 1 riu go");
                 }
                 else
@@ -387,6 +388,7 @@ void che_tao() // giao dien che tao
                 if (kt == 7)
                 {
                     them_vat_pham(8, 1);
+                    them_vat_pham(1, -5);
                     strcpy(hien_thi, "Ban nhan duoc 1 cup go");
                 }
                 else
@@ -1289,10 +1291,7 @@ int kiem_tra_vat_pham(int id, int so_luong) // ham kiem tra vat the voi id va so
         if (id == vat_pham[i].id)
         {
             if (vat_pham[i].so_luong >= so_luong)
-            {
-                them_vat_pham(id, -so_luong);
                 return 1;
-            }
         }
     }
     return 0;
