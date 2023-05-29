@@ -26,6 +26,7 @@ typedef struct khoi
     char ten[100];
     int do_ben;
     int do_ben_toi_da;
+    int kha_nang_tuong_tac;
     int toa_do_x;
     int toa_do_y;
 } khoi;
@@ -88,6 +89,7 @@ void luu_du_lieu()
         fprintf(f, "%d ", vat_the[i].id);
         fprintf(f, "%d ", vat_the[i].do_ben);
         fprintf(f, "%d ", vat_the[i].do_ben_toi_da);
+        fprintf(f, "%d ", vat_the[i].kha_nang_tuong_tac);
         fprintf(f, "%d ", vat_the[i].toa_do_x);
         fprintf(f, "%d ", vat_the[i].toa_do_y);
     }
@@ -160,6 +162,7 @@ void tai_du_lieu()
         fscanf(f, "%d ", &vat_the[i].id);
         fscanf(f, "%d ", &vat_the[i].do_ben);
         fscanf(f, "%d ", &vat_the[i].do_ben_toi_da);
+        fscanf(f, "%d ", &vat_the[i].kha_nang_tuong_tac);
         fscanf(f, "%d ", &vat_the[i].toa_do_x);
         fscanf(f, "%d ", &vat_the[i].toa_do_y);
     }
@@ -177,7 +180,7 @@ void tai_du_lieu()
 
     for (i = 0; i < so_luong_vat_pham; i++)
         fgets(vat_pham[i].ten, sizeof vat_pham[i].ten, f);
-     fscanf(f, "%d ", &so_luong_hoi);
+    fscanf(f, "%d ", &so_luong_hoi);
     for (i = 0; i < so_luong_hoi; i++)
     {
         fscanf(f, "%d ", &thoi_gian_hoi_vat_the[i].id);
