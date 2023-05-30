@@ -2,6 +2,8 @@ int x_nguoi_choi;
 int y_nguoi_choi;
 int so_luong_vat_the = 0;
 int so_luong_vat_pham = 0;
+int so_luong_vat_pham_trong_ruong[100];
+int so_luong_ruong = 0;
 int trang_bi = 0;
 int huong_nguoi_choi = 4;
 int gio = 6;
@@ -27,6 +29,7 @@ typedef struct khoi
     int do_ben;
     int do_ben_toi_da;
     int kha_nang_tuong_tac;
+    int vi_tri_ruong;
     int toa_do_x;
     int toa_do_y;
 } khoi;
@@ -44,6 +47,7 @@ typedef struct doi_tuong
 } doi_tuong;
 
 doi_tuong vat_pham[1000];
+doi_tuong vat_the_ruong[100][100];
 
 typedef struct thoi_gian_hoi
 {
@@ -56,12 +60,13 @@ thoi_gian_hoi thoi_gian_hoi_vat_the[100];
 
 void luu_du_lieu()
 {
-    int i;
+    int i, j;
     f = fopen("save.txt", "w");
     fprintf(f, "%d ", x_nguoi_choi);
     fprintf(f, "%d ", y_nguoi_choi);
     fprintf(f, "%d ", so_luong_vat_pham);
     fprintf(f, "%d ", so_luong_vat_the);
+    fprintf(f, "%d ", so_luong_ruong);
     fprintf(f, "%d ", trang_bi);
     fprintf(f, "%d ", huong_nguoi_choi);
     fprintf(f, "%d ", gio);
@@ -90,6 +95,7 @@ void luu_du_lieu()
         fprintf(f, "%d ", vat_the[i].do_ben);
         fprintf(f, "%d ", vat_the[i].do_ben_toi_da);
         fprintf(f, "%d ", vat_the[i].kha_nang_tuong_tac);
+        fprintf(f, "%d ", vat_the[i].vi_tri_ruong);
         fprintf(f, "%d ", vat_the[i].toa_do_x);
         fprintf(f, "%d ", vat_the[i].toa_do_y);
     }
@@ -121,6 +127,29 @@ void luu_du_lieu()
         fprintf(f, "%d ", thoi_gian_hoi_vat_the[i].thoi_gian);
         fprintf(f, "%d ", thoi_gian_hoi_vat_the[i].vi_tri);
     }
+    fprintf(f, "\n");
+    for (i = 0; i < so_luong_ruong; i++)
+        fprintf(f, "%d ", so_luong_vat_pham_trong_ruong[i]);
+    fprintf(f, "\n");
+    for (i = 0; i < so_luong_ruong; i++)
+    {
+        for (j = 0; j < so_luong_vat_pham_trong_ruong[i]; j++)
+        {
+            fprintf(f, "%d ", vat_the_ruong[j][i].id);
+            fprintf(f, "%d ", vat_the_ruong[j][i].gop);
+            fprintf(f, "%d ", vat_the_ruong[j][i].suc_cong_pha);
+            fprintf(f, "%d ", vat_the_ruong[j][i].so_luong);
+            fprintf(f, "%d ", vat_the_ruong[j][i].the);
+        }
+        fprintf(f, "\n");
+        for (j = 0; j < so_luong_vat_pham_trong_ruong[i]; j++)
+        {
+            fputs(vat_the_ruong[j][i].ten, f);
+            if (sua_loi_file == 0)
+                fprintf(f, "\n");
+        }
+    }
+
     fclose(f);
 }
 
@@ -133,13 +162,14 @@ void xoa_du_lieu()
 
 void tai_du_lieu()
 {
-    int i;
+    int i, j;
     sua_loi_file = 1;
     f = fopen("save.txt", "r");
     fscanf(f, "%d ", &x_nguoi_choi);
     fscanf(f, "%d ", &y_nguoi_choi);
     fscanf(f, "%d ", &so_luong_vat_pham);
     fscanf(f, "%d ", &so_luong_vat_the);
+    fscanf(f, "%d ", &so_luong_ruong);
     fscanf(f, "%d ", &trang_bi);
     fscanf(f, "%d ", &huong_nguoi_choi);
     fscanf(f, "%d ", &gio);
@@ -163,11 +193,16 @@ void tai_du_lieu()
         fscanf(f, "%d ", &vat_the[i].do_ben);
         fscanf(f, "%d ", &vat_the[i].do_ben_toi_da);
         fscanf(f, "%d ", &vat_the[i].kha_nang_tuong_tac);
+        fscanf(f, "%d ", &vat_the[i].vi_tri_ruong);
         fscanf(f, "%d ", &vat_the[i].toa_do_x);
         fscanf(f, "%d ", &vat_the[i].toa_do_y);
     }
     for (i = 0; i < so_luong_vat_the; i++)
+    {
         fgets(vat_the[i].ten, sizeof vat_the[i].ten, f);
+        vat_the[i].ten[strcspn(vat_the[i].ten, "\n")] = 0;
+    }
+        
 
     for (i = 0; i < so_luong_vat_pham; i++)
     {
@@ -186,6 +221,21 @@ void tai_du_lieu()
         fscanf(f, "%d ", &thoi_gian_hoi_vat_the[i].id);
         fscanf(f, "%d ", &thoi_gian_hoi_vat_the[i].thoi_gian);
         fscanf(f, "%d ", &thoi_gian_hoi_vat_the[i].vi_tri);
+    }
+    for (i = 0; i < so_luong_ruong; i++)
+        fscanf(f, "%d ", &so_luong_vat_pham_trong_ruong[i]);
+    for (i = 0; i < so_luong_ruong; i++)
+    {
+        for (j = 0; j < so_luong_vat_pham_trong_ruong[i]; j++)
+        {
+            fscanf(f, "%d ", &vat_the_ruong[j][i].id);
+            fscanf(f, "%d ", &vat_the_ruong[j][i].gop);
+            fscanf(f, "%d ", &vat_the_ruong[j][i].suc_cong_pha);
+            fscanf(f, "%d ", &vat_the_ruong[j][i].so_luong);
+            fscanf(f, "%d ", &vat_the_ruong[j][i].the);
+        }
+        for (j = 0; j < so_luong_vat_pham_trong_ruong[i]; j++)
+            fgets(vat_the_ruong[j][i].ten, sizeof vat_the_ruong[j][i].ten, f);
     }
     fclose(f);
 }

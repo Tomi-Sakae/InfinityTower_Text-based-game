@@ -8,7 +8,7 @@ Dùng các phím mũi tên để điều chỉnh hướng của nhân vật.
 
 Dùng nút k để tương tác với vật thể.
 
-Dùng nút p để dùng vật phẩm hoặc đặt vật phẩm hoặc tương tác với vật phẩm.
+Dùng nút p để dùng vật phẩm hoặc đặt vật phẩm hoặc tương tác với vật thể.
 
 Dùng nút e để mở túi đồ.
 
