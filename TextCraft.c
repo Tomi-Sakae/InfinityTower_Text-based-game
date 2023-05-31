@@ -202,6 +202,202 @@ void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
     }
 }
 
+int chon_vat_pham = 0;
+void chon_so_luong_vat_pham(int vi_tri) // ham cho phep nguoi choi chon so luong vat pham
+{
+    int so_luong_can = 1;
+    char lua_chon_menu;
+    int bo_qua = 0;
+    gotoxy(56, 5);
+    printf("Vui long chon so luong: ");
+    while (1)
+    {
+        gotoxy(58, 7);
+        if (chon_vat_pham == 1)
+        {
+            puts(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten);
+            gotoxy(58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten), 7);
+            if (sua_loi_file == 0)
+            {
+                if (so_luong_can > 1)
+                    printf(" <");
+                printf(" %d/", so_luong_can);
+            }
+            else
+            {
+                if (so_luong_can > 1)
+                    printf("< ");
+                printf("%d/", so_luong_can);
+            }
+
+            if (sua_loi_file == 0)
+            {
+                if (so_luong_can > 1)
+                    gotoxy(58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 4 + so_luong_chu_so(so_luong_can, 0), 7);
+                else
+                    gotoxy(58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0), 7);
+            }
+            else
+            {
+                if (so_luong_can > 1)
+                    gotoxy((58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 4 + so_luong_chu_so(so_luong_can, 0)) - 1, 7);
+                else
+                    gotoxy((58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0)) - 1, 7);
+            }
+            printf("%d", vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong);
+            if (so_luong_can < vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong - 1)
+            {
+                if (sua_loi_file == 0)
+                {
+                    if (so_luong_can == 1)
+                        gotoxy((58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong, 0)) - 2, 7);
+                    else
+                        gotoxy(58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong, 0), 7);
+                }
+                else
+                {
+                    if (so_luong_can == 1)
+                        gotoxy((58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong, 0)) - 3, 7);
+                    else
+                        gotoxy((58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong, 0)) - 1, 7);
+                }
+                printf(" >");
+            }
+        }
+        if (chon_vat_pham == 2)
+        {
+            puts(vat_pham[vi_tri].ten);
+            gotoxy(58 + strlen(vat_pham[vi_tri].ten), 7);
+            if (sua_loi_file == 0)
+            {
+                if (so_luong_can > 1)
+                    printf(" <");
+                printf(" %d/", so_luong_can);
+            }
+            else
+            {
+                if (so_luong_can > 1)
+                    printf("< ");
+                printf("%d/", so_luong_can);
+            }
+
+            if (sua_loi_file == 0)
+            {
+                if (so_luong_can > 1)
+                    gotoxy(58 + strlen(vat_pham[vi_tri].ten) + 4 + so_luong_chu_so(so_luong_can, 0), 7);
+                else
+                    gotoxy(58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0), 7);
+            }
+            else
+            {
+                if (so_luong_can > 1)
+                    gotoxy((58 + strlen(vat_pham[vi_tri].ten) + 4 + so_luong_chu_so(so_luong_can, 0)) - 1, 7);
+                else
+                    gotoxy((58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0)) - 1, 7);
+            }
+            printf("%d", vat_pham[vi_tri].so_luong);
+            if (so_luong_can < vat_pham[vi_tri].so_luong - 1)
+            {
+                if (sua_loi_file == 0)
+                {
+                    if (so_luong_can == 1)
+                        gotoxy((58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_pham[vi_tri].so_luong, 0)) - 2, 7);
+                    else
+                        gotoxy(58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_pham[vi_tri].so_luong, 0), 7);
+                }
+                else
+                {
+                    if (so_luong_can == 1)
+                        gotoxy((58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_pham[vi_tri].so_luong, 0)) - 3, 7);
+                    else
+                        gotoxy((58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_pham[vi_tri].so_luong, 0)) - 1, 7);
+                }
+                printf(" >");
+            }
+        }
+        lua_chon_menu = getch();
+        switch (lua_chon_menu)
+        {
+        case 'q':
+        {
+            return;
+            break;
+        }
+        case 'a':
+        {
+            if (so_luong_can > 1)
+            {
+                gotoxy(58, 7);
+                if (chon_vat_pham == 1)
+                {
+                    for (i = 0; i < strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + so_luong_chu_so(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong, 0) + 4; i++)
+                        printf(" ");
+                }
+                if (chon_vat_pham == 2)
+                {
+                    for (i = 0; i < strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + so_luong_chu_so(vat_pham[vi_tri].so_luong, 0) + 4; i++)
+                        printf(" ");
+                }
+                so_luong_can--;
+            }
+            break;
+        }
+        case 'd':
+        {
+            if (so_luong_can < vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong - 1 || so_luong_can < vat_pham[vi_tri].so_luong - 1)
+            {
+                gotoxy(58, 7);
+                if (chon_vat_pham == 1)
+                {
+                    for (i = 0; i < strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + so_luong_chu_so(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong, 0) + 4; i++)
+                        printf(" ");
+                }
+                if (chon_vat_pham == 2)
+                {
+                    for (i = 0; i < strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + so_luong_chu_so(vat_pham[vi_tri].so_luong, 0) + 4; i++)
+                        printf(" ");
+                }
+                so_luong_can++;
+            }
+            break;
+        }
+        case 'k':
+        {
+            if (chon_vat_pham == 1)
+            {
+                vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong -= so_luong_can;
+                them_vat_pham(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].id, so_luong_can);
+            }
+            if (chon_vat_pham == 2)
+            {
+                them_vat_pham(vat_pham[vi_tri].id, -so_luong_can);
+                for (i = 0; i < so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]; i++)
+                {
+                    if (vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].id == vat_pham[vi_tri].id)
+                    {
+                        vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].so_luong += so_luong_can;
+                        bo_qua = 1;
+                        break;
+                    }
+                }
+                if (bo_qua == 0)
+                {
+                    vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].id = vat_pham[vi_tri].id;
+                    vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].gop = vat_pham[vi_tri].gop;
+                    vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].so_luong = so_luong_can;
+                    vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].suc_cong_pha = vat_pham[vi_tri].suc_cong_pha;
+                    vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].the = vat_pham[vi_tri].the;
+                    strcpy(vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].ten, vat_pham[vi_tri].ten);
+                    so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]++;
+                }
+            }
+            return;
+            break;
+        }
+        }
+    }
+}
+
 int kt_ruong = 0;
 int trang = 1;
 int so_luong_vat_pham_con_lai = 0; // cac bien toan cuc danh cho ham tui do
@@ -209,6 +405,7 @@ int kt_tui_do = 0;
 void tui_do() // giao dien tui do
 {
     float so_trang;
+    int bo_qua = 0;
     int y_chon = 7;
     int y = 7;
     int vi_tri = so_luong_vat_pham_con_lai;
@@ -328,21 +525,51 @@ void tui_do() // giao dien tui do
         }
         case 'k':
         {
-            if (kt_ruong == 0)
-                trang_bi = vi_tri; // du lieu trang bi duoc lay tu lua chon cua nguoi choi
-            else
+            if (so_luong_vat_pham > 0)
             {
-                vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].id = vat_pham[vi_tri].id;
-                vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].gop = vat_pham[vi_tri].gop;
-                vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].so_luong = vat_pham[vi_tri].so_luong;
-                vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].suc_cong_pha = vat_pham[vi_tri].suc_cong_pha;
-                vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].the = vat_pham[vi_tri].the;
-                strcpy(vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].ten, vat_pham[vi_tri].ten);
-                so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]++;
-                xoa_vat_pham(vi_tri);
+                if (kt_ruong == 0)
+                    trang_bi = vi_tri; // du lieu trang bi duoc lay tu lua chon cua nguoi choi
+                else
+                {
+                    for (i = 0; i < so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]; i++)
+                    {
+                        if (vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].id == vat_pham[vi_tri].id)
+                        {
+                            vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].so_luong += vat_pham[vi_tri].so_luong;
+                            bo_qua = 1;
+                            break;
+                        }
+                    }
+                    if (bo_qua == 0)
+                    {
+                        vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].id = vat_pham[vi_tri].id;
+                        vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].gop = vat_pham[vi_tri].gop;
+                        vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].so_luong = vat_pham[vi_tri].so_luong;
+                        vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].suc_cong_pha = vat_pham[vi_tri].suc_cong_pha;
+                        vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].the = vat_pham[vi_tri].the;
+                        strcpy(vat_the_ruong[so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]][vat_the[i_tam].vi_tri_ruong].ten, vat_pham[vi_tri].ten);
+                        so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]++;
+                    }
+                    xoa_vat_pham(vi_tri);
+                }
+                kt_tui_do = 1;
+                return;
             }
-            kt_tui_do = 1;
-            return;
+            break;
+        }
+        case 'p':
+        {
+            if (so_luong_vat_pham > 0 && vat_pham[vi_tri].so_luong > 1)
+            {
+                if (kt_ruong == 1)
+                {
+                    chon_vat_pham = 2;
+                    chuyen_chuc_nang();
+                    chon_so_luong_vat_pham(vi_tri);
+                }
+                kt_tui_do = 1;
+                return;
+            }
             break;
         }
         }
@@ -465,19 +692,31 @@ void xem_ruong() // ham cho phep nguoi choi xem ruong ben trong co gi
         }
         case 'k':
         {
-            if (kt_ruong == 1)
+            if (so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong] > 0)
             {
-                vat_pham[so_luong_vat_pham].id = vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].id;
-                vat_pham[so_luong_vat_pham].gop = vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].gop;
-                vat_pham[so_luong_vat_pham].so_luong = vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong;
-                vat_pham[so_luong_vat_pham].suc_cong_pha = vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].suc_cong_pha;
-                vat_pham[so_luong_vat_pham].the = vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].the;
-                strcpy(vat_pham[so_luong_vat_pham].ten, vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten);
-                so_luong_vat_pham++;
-                xoa_vat_pham_ruong(vi_tri);
+                if (kt_ruong == 1)
+                {
+                    them_vat_pham(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].id, vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong);
+                    xoa_vat_pham_ruong(vi_tri);
+                }
+                kt_xem_ruong = 1;
+                return;
             }
-            kt_xem_ruong = 1;
-            return;
+            break;
+        }
+        case 'p':
+        {
+            if (so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong] > 0 && vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong > 1)
+            {
+                if (kt_ruong == 1)
+                {
+                    chon_vat_pham = 1;
+                    chuyen_chuc_nang();
+                    chon_so_luong_vat_pham(vi_tri);
+                }
+                kt_xem_ruong = 1;
+                return;
+            }
             break;
         }
         }
@@ -1397,20 +1636,14 @@ void thuc_hien_hanh_dong()
         {
             for (i = 0; i < so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong]; i++)
             {
-                vat_pham[so_luong_vat_pham].id = vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].id;
-                vat_pham[so_luong_vat_pham].gop = vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].gop;
-                vat_pham[so_luong_vat_pham].so_luong = vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].so_luong;
-                vat_pham[so_luong_vat_pham].suc_cong_pha = vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].suc_cong_pha;
-                vat_pham[so_luong_vat_pham].the = vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].the;
-                strcpy(vat_pham[so_luong_vat_pham].ten, vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].ten);
                 strcat(hanh_dong, " | +");
-                sprintf(so_thanh_chuoi[0], " %d ", vat_pham[so_luong_vat_pham].so_luong);
+                sprintf(so_thanh_chuoi[0], " %d ", vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].so_luong);
                 strcat(hanh_dong, so_thanh_chuoi[0]);
                 char ten_vat_pham_tam[100];
-                strcpy(ten_vat_pham_tam, vat_pham[so_luong_vat_pham].ten);
+                strcpy(ten_vat_pham_tam, vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].ten);
                 ten_vat_pham_tam[0] += 32;
                 strcat(hanh_dong, ten_vat_pham_tam);
-                so_luong_vat_pham++;
+                them_vat_pham(vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].id, vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].so_luong);
             }
         }
         so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong] = -1;
@@ -1539,9 +1772,9 @@ void thuc_hien_dat_khoi()
         vat_the[so_luong_vat_the].kha_nang_tuong_tac = 1;
         vat_the[so_luong_vat_the].vi_tri_ruong = so_luong_ruong;
         so_luong_ruong++;
-        for(i = 0; i < so_luong_ruong - 1; i++)
+        for (i = 0; i < so_luong_ruong - 1; i++)
         {
-            if(so_luong_vat_pham_trong_ruong[i] == -1)
+            if (so_luong_vat_pham_trong_ruong[i] == -1)
             {
                 vat_the[so_luong_vat_the].vi_tri_ruong = i;
                 so_luong_vat_pham_trong_ruong[i] = 0;
