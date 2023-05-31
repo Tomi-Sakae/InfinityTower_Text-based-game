@@ -1,4 +1,4 @@
-TextCraft
+Infinity Tower
 
 Đây là game đầu tiên của mình viết bằng ngôn ngữ C:
 

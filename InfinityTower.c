@@ -1099,7 +1099,7 @@ void man_hinh_tieu_de() // man hinh xuat hien khi moi vao game
     while (1)
     {
         gotoxy(5, 5);
-        printf("TextCraft Beta V0.3");
+        printf("Infinity Tower Beta V0.3");
         gotoxy(7, 7);
         printf("Choi moi");
         gotoxy(7, 9);
