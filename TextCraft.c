@@ -1413,6 +1413,7 @@ void thuc_hien_hanh_dong()
                 so_luong_vat_pham++;
             }
         }
+        so_luong_vat_pham_trong_ruong[vat_the[i_tam].vi_tri_ruong] = -1;
     }
 }
 
@@ -1538,6 +1539,16 @@ void thuc_hien_dat_khoi()
         vat_the[so_luong_vat_the].kha_nang_tuong_tac = 1;
         vat_the[so_luong_vat_the].vi_tri_ruong = so_luong_ruong;
         so_luong_ruong++;
+        for(i = 0; i < so_luong_ruong - 1; i++)
+        {
+            if(so_luong_vat_pham_trong_ruong[i] == -1)
+            {
+                vat_the[so_luong_vat_the].vi_tri_ruong = i;
+                so_luong_vat_pham_trong_ruong[i] = 0;
+                so_luong_ruong--;
+                break;
+            }
+        }
         them_vat_pham(10, -1);
         so_luong_vat_the++;
         bo_lo();
