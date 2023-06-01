@@ -20,6 +20,8 @@ Dùng nút c để chế tạo vật phẩm.
 
 Dùng nút t để mở giao diện cài đặt.
 
+Dùng nút i để mở giao diện xem thông tin vật phẩm.
+
 Dùng nút q để thoát khỏi giao diện menu.
 
 Tại các giao diện menu dùng w - s để di chuyển mũi tên và dùng nút k để chọn chức năng mà mũi tên chỉ vào.

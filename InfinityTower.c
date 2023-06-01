@@ -61,6 +61,7 @@ int so_luong_chu_so(int temp, int count)
 void game_over() // ket thuc game
 {
     system("cls");
+    gotoxy(5, 5);
     printf("Game Over!");
     sleep(5);
     exit(1);
@@ -1096,6 +1097,9 @@ void cai_dat() // phan cai dat cua game
 void man_hinh_tieu_de() // man hinh xuat hien khi moi vao game
 {
     int y_chon = 7;
+    char kt_tam;
+    f = fopen("save.txt", "r");
+    kt_tam = fgetc(f);
     while (1)
     {
         gotoxy(5, 5);
@@ -1137,18 +1141,78 @@ void man_hinh_tieu_de() // man hinh xuat hien khi moi vao game
         {
             if (y_chon == 7)
             {
-                xoa_du_lieu();
-                system("cls");
-                return;
+                int kt_quay_lai = 0;
+                if (kt_tam != ' ')
+                {
+                    int y_chon_chon = 7;
+                    system("cls");
+                    gotoxy(5, 5);
+                    printf("Du lieu cua ban se bi xoa!");
+                    gotoxy(7, 7);
+                    printf("Tiep tuc");
+                    gotoxy(7, 9);
+                    printf("Quay lai");
+                    while (1)
+                    {
+                        int kt_thoat = 0;
+                        gotoxy(5, y_chon_chon);
+                        printf("->");
+                        lua_chon_menu = getch();
+                        switch (lua_chon_menu)
+                        {
+                        case 'w':
+                        {
+                            if (y_chon_chon > 7)
+                            {
+                                gotoxy(5, y_chon_chon);
+                                printf("  ");
+                                y_chon_chon -= 2;
+                            }
+                            break;
+                        }
+                        case 's':
+                        {
+                            if (y_chon_chon < 9)
+                            {
+                                gotoxy(5, y_chon_chon);
+                                printf("  ");
+                                y_chon_chon += 2;
+                            }
+                            break;
+                        }
+                        case 'k':
+                        {
+                            if (y_chon_chon == 7)
+                                kt_thoat = 1;
+                            if (y_chon_chon == 9)
+                            {
+                                kt_quay_lai = 1;
+                                kt_thoat = 1;
+                            }
+                            break;
+                        }
+                        }
+                        if (kt_thoat == 1)
+                            break;
+                    }
+                }
+                if (kt_quay_lai == 0)
+                {
+                    xoa_du_lieu();
+                    system("cls");
+                    return;
+                }
+                else
+                    system("cls");
             }
             if (y_chon == 9)
             {
                 system("cls");
-                char kt_tam;
-                f = fopen("save.txt", "r");
-                kt_tam = fgetc(f);
                 if (kt_tam == ' ') // kiem tra du lieu cua game co rong hay khong
+                {
+                    gotoxy(5, 5);
                     printf("Khong co du lieu da luu truoc do...");
+                }
                 else
                 {
                     tiep_tuc = 1;
@@ -1329,8 +1393,18 @@ int main()
         tai_vat_the();
     // thiet ke khung tro choi chinh
     int y = 6;
+    char ten_tang[100];
+    if (vi_tri_tang == 11)
+        strcpy(ten_tang, "|Tang 1-1: Khu Vuc Khoi Dau|");
+    int vi_tri_ten_tang = (50 - strlen(ten_tang)) / 2;
     gotoxy(5, 5);
-    for (i = 1; i <= 50; i++)
+    for (i = 1; i <= vi_tri_ten_tang; i++)
+        printf("=");
+    puts(ten_tang);
+    gotoxy(5 + vi_tri_ten_tang + strlen(ten_tang), 5); // chuoi lenh can giua ten tang
+    for (i = 1; i <= vi_tri_ten_tang; i++)
+        printf("=");
+    if (vi_tri_ten_tang + strlen(ten_tang) + vi_tri_ten_tang == 49)
         printf("=");
     for (i = 1; i <= 15; i++)
     {

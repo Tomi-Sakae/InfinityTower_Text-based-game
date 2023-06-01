@@ -1,5 +1,6 @@
 int x_nguoi_choi;
 int y_nguoi_choi;
+int vi_tri_tang = 11;
 int so_luong_vat_the = 0;
 int so_luong_vat_pham = 0;
 int so_luong_vat_pham_trong_ruong[100];
@@ -64,6 +65,7 @@ void luu_du_lieu()
     f = fopen("save.txt", "w");
     fprintf(f, "%d ", x_nguoi_choi);
     fprintf(f, "%d ", y_nguoi_choi);
+    fprintf(f, "%d ", vi_tri_tang);
     fprintf(f, "%d ", so_luong_vat_pham);
     fprintf(f, "%d ", so_luong_vat_the);
     fprintf(f, "%d ", so_luong_ruong);
@@ -167,6 +169,7 @@ void tai_du_lieu()
     f = fopen("save.txt", "r");
     fscanf(f, "%d ", &x_nguoi_choi);
     fscanf(f, "%d ", &y_nguoi_choi);
+    fscanf(f, "%d ", &vi_tri_tang);
     fscanf(f, "%d ", &so_luong_vat_pham);
     fscanf(f, "%d ", &so_luong_vat_the);
     fscanf(f, "%d ", &so_luong_ruong);
