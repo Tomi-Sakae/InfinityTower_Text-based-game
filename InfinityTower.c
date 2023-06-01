@@ -1030,6 +1030,72 @@ void che_tao() // giao dien che tao
     }
 }
 
+void thong_tin() // phan thong tin cua game
+{
+    gotoxy(56, 5);
+    printf("Thong tin vat pham: ");
+    gotoxy(58, 7);
+    printf("Tang 1");
+    gotoxy(58, 9);
+    printf("Tang 2");
+    gotoxy(58, 11);
+    printf("Tang 3");
+    int y_chon = 7;
+    while (1)
+    {
+        gotoxy(56, y_chon);
+        printf("->");
+        char lua_chon_menu = getch();
+        switch (lua_chon_menu)
+        {
+        case 'i':
+        {
+            return;
+            break;
+        }
+        case 'w':
+        {
+            if (y_chon > 7)
+            {
+                gotoxy(56, y_chon);
+                printf("  ");
+                y_chon -= 2;
+            }
+            break;
+        }
+        case 's':
+        {
+            if (y_chon < 11)
+            {
+                gotoxy(56, y_chon);
+                printf("  ");
+                y_chon += 2;
+            }
+            break;
+        }
+        case 'k':
+        {
+            if (y_chon == 7)
+            {
+                
+                return;
+            }
+            if (y_chon == 9)
+            {
+               
+                return;
+            }
+            if (y_chon == 11)
+            {
+               
+                return;
+            }
+            break;
+        }
+        }
+    }
+}
+
 void cai_dat() // phan cai dat cua game
 {
     gotoxy(56, 5);
@@ -1520,6 +1586,13 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
     {
         chuyen_chuc_nang();
         cai_dat();
+        chuyen_chuc_nang();
+        break;
+    }
+    case 'i':
+    {
+        chuyen_chuc_nang();
+        thong_tin();
         chuyen_chuc_nang();
         break;
     }
