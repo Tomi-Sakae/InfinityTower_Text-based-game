@@ -12,6 +12,8 @@ Dùng nút p để dùng vật phẩm.
 
 Dùng nút p để đặt vật phẩm.
 
+Dùng nút p để chọn số lượng vật phẩm.
+
 Dùng nút p để tương tác với vật thể - sử dụng vật thể.
 
 Dùng nút e để mở túi đồ.

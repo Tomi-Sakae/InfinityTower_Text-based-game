@@ -1,6 +1,8 @@
 int x_nguoi_choi;
 int y_nguoi_choi;
 int vi_tri_tang = 11;
+int vat_pham_da_co[1000];
+int so_luong_vat_pham_da_co = 4;
 int so_luong_vat_the = 0;
 int so_luong_vat_pham = 0;
 int so_luong_vat_pham_trong_ruong[100];
@@ -151,7 +153,9 @@ void luu_du_lieu()
                 fprintf(f, "\n");
         }
     }
-
+    fprintf(f, "%d ", so_luong_vat_pham_da_co);
+    for(i = 0; i < so_luong_vat_pham_da_co; i++)
+        fprintf(f, "%d ", vat_pham_da_co[i]);
     fclose(f);
 }
 
@@ -240,5 +244,8 @@ void tai_du_lieu()
         for (j = 0; j < so_luong_vat_pham_trong_ruong[i]; j++)
             fgets(vat_the_ruong[j][i].ten, sizeof vat_the_ruong[j][i].ten, f);
     }
+    fscanf(f, "%d ", &so_luong_vat_pham_da_co);
+    for(i = 0; i < so_luong_vat_pham_da_co; i++)
+        fscanf(f, "%d ", &vat_pham_da_co[i]);
     fclose(f);
 }

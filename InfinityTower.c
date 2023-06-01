@@ -1030,19 +1030,51 @@ void che_tao() // giao dien che tao
     }
 }
 
-void thong_tin() // phan thong tin cua game
+void vat_pham_1_1() // ham hien thi vat pham ma nguoi choi tung so huu
 {
     gotoxy(56, 5);
     printf("Thong tin vat pham: ");
     gotoxy(58, 7);
-    printf("Tang 1");
+    if (vat_pham_da_co[0] == 1)
+        printf("Khoi go");
+    else
+        printf("???");
     gotoxy(58, 9);
-    printf("Tang 2");
+    if (vat_pham_da_co[1] == 1)
+        printf("Cuc da");
+    else
+        printf("???");
     gotoxy(58, 11);
-    printf("Tang 3");
+    if (vat_pham_da_co[2] == 1)
+        printf("Chum nho");
+    else
+        printf("???");
+    gotoxy(58, 13);
+    if (vat_pham_da_co[3] == 1)
+        printf("Mam cay");
+    else
+        printf("???");
+    while (1)
+    {
+        char lua_chon_menu = getch();
+        if (lua_chon_menu == 'q')
+            return;
+    }
+}
+
+void thong_tin() // phan thong tin cua game
+{
     int y_chon = 7;
     while (1)
     {
+        gotoxy(56, 5);
+        printf("Thong tin vat pham: ");
+        gotoxy(58, 7);
+        printf("Tang 1");
+        gotoxy(58, 9);
+        printf("Tang 2");
+        gotoxy(58, 11);
+        printf("Tang 3");
         gotoxy(56, y_chon);
         printf("->");
         char lua_chon_menu = getch();
@@ -1077,17 +1109,84 @@ void thong_tin() // phan thong tin cua game
         {
             if (y_chon == 7)
             {
-                
-                return;
+                int y_chon_chon = 7;
+                int kt_thoat = 0;
+                chuyen_chuc_nang();
+                gotoxy(56, 5);
+                printf("Thong tin vat pham: ");
+                gotoxy(58, 7);
+                printf("Tang 1-1");
+                gotoxy(58, 9);
+                printf("Tang 1-2");
+                gotoxy(58, 11);
+                printf("Tang 1-3");
+                while (1)
+                {
+                    gotoxy(56, y_chon_chon);
+                    printf("->");
+                    char lua_chon_menu = getch();
+                    switch (lua_chon_menu)
+                    {
+                    case 'q':
+                    {
+                        kt_thoat = 1;
+                        break;
+                    }
+                    case 'w':
+                    {
+                        if (y_chon_chon > 7)
+                        {
+                            gotoxy(56, y_chon_chon);
+                            printf("  ");
+                            y_chon_chon -= 2;
+                        }
+                        break;
+                    }
+                    case 's':
+                    {
+                        if (y_chon_chon < 11)
+                        {
+                            gotoxy(56, y_chon_chon);
+                            printf("  ");
+                            y_chon_chon += 2;
+                        }
+                        break;
+                    }
+                    case 'k':
+                    {
+                        if (y_chon_chon == 7)
+                        {
+                            chuyen_chuc_nang();
+                            vat_pham_1_1();
+                            return;
+                        }
+                        if (y_chon_chon == 9)
+                        {
+
+                            return;
+                        }
+                        if (y_chon_chon == 11)
+                        {
+
+                            return;
+                        }
+                    }
+                    }
+                    if (kt_thoat == 1)
+                    {
+                        chuyen_chuc_nang();
+                        break;
+                    }
+                }
             }
             if (y_chon == 9)
             {
-               
+
                 return;
             }
             if (y_chon == 11)
             {
-               
+
                 return;
             }
             break;
@@ -1670,6 +1769,7 @@ void thuc_hien_hanh_dong()
             return;
         }
         the_luc -= 5;
+        vat_pham_da_co[0] = 1;
         strcpy(hanh_dong, "Ban vua chat cay | +");
         strcat(hanh_dong, so_thanh_chuoi[0]); // hien thi suc cong pha cua trang bi hien tai
         strcat(hanh_dong, "khoi go");
@@ -1685,6 +1785,7 @@ void thuc_hien_hanh_dong()
             strcat(hanh_dong, "khoi go");
             if (mam_cay != 0)
             {
+                vat_pham_da_co[3] = 1;
                 strcat(hanh_dong, " | +");
                 strcat(hanh_dong, so_thanh_chuoi[0]);
                 strcat(hanh_dong, "mam cay");
@@ -1705,6 +1806,7 @@ void thuc_hien_hanh_dong()
             return;
         }
         the_luc -= 10;
+        vat_pham_da_co[1] = 1;
         strcpy(hanh_dong, "Ban vua dao da | +");
         strcat(hanh_dong, so_thanh_chuoi[0]);
         strcat(hanh_dong, "cuc da");
@@ -1725,6 +1827,7 @@ void thuc_hien_hanh_dong()
 
     if (vat_the[i_tam].id == 3)
     {
+        vat_pham_da_co[2] = 1;
         strcpy(hanh_dong, "Ban vua nhat nho | + 1 chum nho");
         vat_the[i_tam].do_ben--;
         if (vat_the[i_tam].do_ben == 0)
