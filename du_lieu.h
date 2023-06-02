@@ -2,7 +2,7 @@ int x_nguoi_choi;
 int y_nguoi_choi;
 int vi_tri_tang = 11;
 int vat_pham_da_co[1000];
-int so_luong_vat_pham_da_co = 4;
+int so_luong_vat_pham_da_co = 0;
 int so_luong_vat_the = 0;
 int so_luong_vat_pham = 0;
 int so_luong_vat_pham_trong_ruong[100];
@@ -22,6 +22,36 @@ char buoi[100] = "Sang";
 char thoi_tiet[100] = "Nhieu may";
 char nguoi_choi = '>';
 int sua_loi_file = 0;
+
+void TextColor(int x) // ham in chu mau trong c
+{
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(h, x);
+}
+
+void gotoxy(int x, int y) // ham di chuyen con tro toi vi tri x y
+{
+    static HANDLE h = NULL;
+    if (!h)
+        h = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD c = {x, y};
+    SetConsoleCursorPosition(h, c);
+}
+
+int random(int minN, int maxN) // ham sinh so ngau nhien trong doan tu minN den maxN
+{
+    return minN + rand() % (maxN + 1 - minN);
+}
+
+int so_luong_chu_so(int temp, int count)
+{
+    while (temp != 0) // nhom lenh tim so luong chu so de xoa cho hop ly
+    {
+        count++;
+        temp = temp / 10;
+    }
+    return count;
+}
 
 FILE *f;
 
@@ -154,7 +184,7 @@ void luu_du_lieu()
         }
     }
     fprintf(f, "%d ", so_luong_vat_pham_da_co);
-    for(i = 0; i < so_luong_vat_pham_da_co; i++)
+    for (i = 0; i < so_luong_vat_pham_da_co; i++)
         fprintf(f, "%d ", vat_pham_da_co[i]);
     fclose(f);
 }
@@ -209,7 +239,6 @@ void tai_du_lieu()
         fgets(vat_the[i].ten, sizeof vat_the[i].ten, f);
         vat_the[i].ten[strcspn(vat_the[i].ten, "\n")] = 0;
     }
-        
 
     for (i = 0; i < so_luong_vat_pham; i++)
     {
@@ -245,7 +274,27 @@ void tai_du_lieu()
             fgets(vat_the_ruong[j][i].ten, sizeof vat_the_ruong[j][i].ten, f);
     }
     fscanf(f, "%d ", &so_luong_vat_pham_da_co);
-    for(i = 0; i < so_luong_vat_pham_da_co; i++)
+    for (i = 0; i < so_luong_vat_pham_da_co; i++)
         fscanf(f, "%d ", &vat_pham_da_co[i]);
     fclose(f);
+}
+
+/*Du lieu van ban cua game*/
+void huong_dan()
+{
+    gotoxy(5, 5);
+    printf("Huong dan: ");
+    gotoxy(7, 7);
+    printf("Doc huong dan cac nut tai: https://github.com/Tomi-Sakae/InfinityTower_Text-based-game");
+}
+
+void thong_tin_vat_pham(int vi_tri)
+{
+    gotoxy(56,5);
+    printf("Thong tin vat pham: ");
+    gotoxy(58,7);
+    puts(vat_pham[vi_tri].ten);
+    gotoxy(58+strlen(vat_pham[vi_tri].ten), 7);
+    printf(":");
+    getch();
 }
