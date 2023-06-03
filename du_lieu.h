@@ -290,11 +290,75 @@ void huong_dan()
 
 void thong_tin_vat_pham(int vi_tri)
 {
-    gotoxy(56,5);
+    gotoxy(56, 5);
     printf("Thong tin vat pham: ");
-    gotoxy(58,7);
+    gotoxy(58, 7);
     puts(vat_pham[vi_tri].ten);
-    gotoxy(58+strlen(vat_pham[vi_tri].ten), 7);
-    printf(":");
+    gotoxy(58 + strlen(vat_pham[vi_tri].ten), 7);
+    printf(": ");
+    if (vat_pham[vi_tri].id == 1)
+    {
+        printf("Mot khoi go san sui thu duoc khi chat");
+        gotoxy(58, 8);
+        printf("cay.");
+    }
+    if (vat_pham[vi_tri].id == 2)
+        printf("Mot cuc da nho thu duoc khi dap da.");
+    if (vat_pham[vi_tri].id == 3)
+    {
+        printf("Mot chum nhung hat nho voi huong vi");
+        gotoxy(58, 8);
+        printf("hoang da.");
+    }
+    if (vat_pham[vi_tri].id == 4)
+    {
+        printf("Mam cay nay se lon thanh cay neu ban");
+        gotoxy(58, 8);
+        printf("trong no!.");
+    }
+    if (vat_pham[vi_tri].id == 5)
+    {
+        printf("Mot cay riu bang sat da bi ri set duoc");
+        gotoxy(58, 8);
+        printf("che tao cach day rat lau.");
+    }
+    if (vat_pham[vi_tri].id == 6)
+    {
+        printf("Mot cay cup bang sat da bi ri set duoc");
+        gotoxy(58, 8);
+        printf("che tao cach day rat lau.");
+    }
+    if (vat_pham[vi_tri].id == 7)
+    {
+        printf("Mot cay riu bang go don so nhung hieu");
+        gotoxy(58, 8);
+        printf("qua.");
+    }
+    if (vat_pham[vi_tri].id == 8)
+    {
+        printf("Mot cay cup bang go gian di nhung chat");
+        gotoxy(58, 8);
+        printf("luong.");
+    }
+    if (vat_pham[vi_tri].id == 9)
+    {
+        printf("Lo nung nay co the nau nhung thu co");
+        gotoxy(58, 8);
+        printf("ban.");
+    }
+    if (vat_pham[vi_tri].id == 10)
+    {
+        printf("Cai ruong chua duoc moi thu tren the");
+        gotoxy(58, 8);
+        printf("gioi nay!.");
+    }
+    if (vat_pham[vi_tri].id == 11)
+    {
+        printf("Tam the duoc cho la mot manh vo cua");
+        gotoxy(58, 8);
+        printf("vet nut khong gian khi the gioi bat dau bi phan chia");
+        gotoxy(58, 9);
+        printf("ra cac tang lop khong gian khep kin.");
+    }
     getch();
 }
