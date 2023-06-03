@@ -16,6 +16,8 @@ Dùng nút p để chọn số lượng vật phẩm.
 
 Dùng nút p để tương tác với vật thể - sử dụng vật thể.
 
+Dùng nút n để không làm gì cả - cho thời gian chạy.
+
 Dùng nút e để mở túi đồ.
 
 Dùng nút c để chế tạo vật phẩm.

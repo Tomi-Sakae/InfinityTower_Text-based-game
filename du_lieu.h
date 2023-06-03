@@ -22,6 +22,7 @@ char buoi[100] = "Sang";
 char thoi_tiet[100] = "Nhieu may";
 char nguoi_choi = '>';
 int sua_loi_file = 0;
+int i, j;
 
 void TextColor(int x) // ham in chu mau trong c
 {
@@ -59,6 +60,7 @@ typedef struct khoi
 {
     int id;
     char ten[100];
+    char bieu_tuong;
     int do_ben;
     int do_ben_toi_da;
     int kha_nang_tuong_tac;
@@ -74,6 +76,7 @@ typedef struct doi_tuong
     int id;
     char ten[100];
     int suc_cong_pha;
+    int co_the_an;
     int gop;
     int so_luong;
     int the;
@@ -93,7 +96,6 @@ thoi_gian_hoi thoi_gian_hoi_vat_the[100];
 
 void luu_du_lieu()
 {
-    int i, j;
     f = fopen("save.txt", "w");
     fprintf(f, "%d ", x_nguoi_choi);
     fprintf(f, "%d ", y_nguoi_choi);
@@ -139,11 +141,14 @@ void luu_du_lieu()
         fputs(vat_the[i].ten, f);
         fprintf(f, "\n");
     }
+    for (i = 0; i < so_luong_vat_the; i++)
+        fputc(vat_the[i].bieu_tuong, f);
     for (i = 0; i < so_luong_vat_pham; i++)
     {
         fprintf(f, "%d ", vat_pham[i].id);
         fprintf(f, "%d ", vat_pham[i].gop);
         fprintf(f, "%d ", vat_pham[i].suc_cong_pha);
+        fprintf(f, "%d ", vat_pham[i].co_the_an);
         fprintf(f, "%d ", vat_pham[i].so_luong);
         fprintf(f, "%d ", vat_pham[i].the);
     }
@@ -172,6 +177,7 @@ void luu_du_lieu()
             fprintf(f, "%d ", vat_the_ruong[j][i].id);
             fprintf(f, "%d ", vat_the_ruong[j][i].gop);
             fprintf(f, "%d ", vat_the_ruong[j][i].suc_cong_pha);
+            fprintf(f, "%d ", vat_the_ruong[j][i].co_the_an);
             fprintf(f, "%d ", vat_the_ruong[j][i].so_luong);
             fprintf(f, "%d ", vat_the_ruong[j][i].the);
         }
@@ -198,7 +204,6 @@ void xoa_du_lieu()
 
 void tai_du_lieu()
 {
-    int i, j;
     sua_loi_file = 1;
     f = fopen("save.txt", "r");
     fscanf(f, "%d ", &x_nguoi_choi);
@@ -239,16 +244,17 @@ void tai_du_lieu()
         fgets(vat_the[i].ten, sizeof vat_the[i].ten, f);
         vat_the[i].ten[strcspn(vat_the[i].ten, "\n")] = 0;
     }
-
+    for (i = 0; i < so_luong_vat_the; i++)
+        vat_the[i].bieu_tuong = fgetc(f);
     for (i = 0; i < so_luong_vat_pham; i++)
     {
         fscanf(f, "%d ", &vat_pham[i].id);
         fscanf(f, "%d ", &vat_pham[i].gop);
         fscanf(f, "%d ", &vat_pham[i].suc_cong_pha);
+        fscanf(f, "%d ", &vat_pham[i].co_the_an);
         fscanf(f, "%d ", &vat_pham[i].so_luong);
         fscanf(f, "%d ", &vat_pham[i].the);
     }
-
     for (i = 0; i < so_luong_vat_pham; i++)
         fgets(vat_pham[i].ten, sizeof vat_pham[i].ten, f);
     fscanf(f, "%d ", &so_luong_hoi);
@@ -267,6 +273,7 @@ void tai_du_lieu()
             fscanf(f, "%d ", &vat_the_ruong[j][i].id);
             fscanf(f, "%d ", &vat_the_ruong[j][i].gop);
             fscanf(f, "%d ", &vat_the_ruong[j][i].suc_cong_pha);
+            fscanf(f, "%d ", &vat_the_ruong[j][i].co_the_an);
             fscanf(f, "%d ", &vat_the_ruong[j][i].so_luong);
             fscanf(f, "%d ", &vat_the_ruong[j][i].the);
         }
@@ -277,6 +284,82 @@ void tai_du_lieu()
     for (i = 0; i < so_luong_vat_pham_da_co; i++)
         fscanf(f, "%d ", &vat_pham_da_co[i]);
     fclose(f);
+}
+
+/*Du lieu the gioi*/
+void du_lieu_tang_1_1()
+{
+    srand((int)time(0));
+    so_luong_vat_the = random(25, 50);
+
+    x_nguoi_choi = random(7, 52);
+    y_nguoi_choi = random(6, 20);
+
+    while (1)
+    {
+        for (i = 0; i < so_luong_vat_the; i++) // nhom lenh tao cay o toa do ngau nhien
+        {
+            vat_the[i].toa_do_x = random(8, 52);
+            vat_the[i].toa_do_y = random(6, 20);
+
+            if (vat_the[i].toa_do_x == x_nguoi_choi && vat_the[i].toa_do_y == y_nguoi_choi)
+                x_nguoi_choi--; // sua loi cay xuat hien ngay vi tri nguoi choi
+        }
+
+        int kiem_tra_so_luong = 0;
+        for (i = 0; i < so_luong_vat_the; i++) // nhom lenh kiem tra cac cay chong len nhau
+        {
+            int kt = 0;
+            for (j = 0; j < so_luong_vat_the; j++)
+            {
+                if (vat_the[j].toa_do_x == vat_the[i].toa_do_x && vat_the[j].toa_do_y == vat_the[i].toa_do_y)
+                    kt++;
+            }
+            if (kt >= 2)
+                break;
+            kiem_tra_so_luong++;
+        }
+        if (kiem_tra_so_luong == so_luong_vat_the)
+            break;
+    }
+    for (i = 0; i < so_luong_vat_the; i++) // tao vat the
+    {
+        gotoxy(vat_the[i].toa_do_x, vat_the[i].toa_do_y); // tao vat the o vi tri ngau nhien
+        int vat_the_ban_dau = random(1, 3);
+        if (vat_the_ban_dau == 1)
+        {
+            strcpy(vat_the[i].ten, "cai cay");
+            vat_the[i].bieu_tuong = 'C';
+            vat_the[i].id = 1;
+            vat_the[i].do_ben_toi_da = 10;
+            vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
+            vat_the[i].kha_nang_tuong_tac = 0;
+            vat_the[i].vi_tri_ruong = -1;
+            printf("%c", vat_the[i].bieu_tuong); // cai cay
+        }
+        if (vat_the_ban_dau == 2)
+        {
+            strcpy(vat_the[i].ten, "tang da");
+            vat_the[i].bieu_tuong = 'D';
+            vat_the[i].id = 2;
+            vat_the[i].do_ben_toi_da = 10;
+            vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
+            vat_the[i].kha_nang_tuong_tac = 0;
+            vat_the[i].vi_tri_ruong = -1;
+            printf("%c", vat_the[i].bieu_tuong); // tang da
+        }
+        if (vat_the_ban_dau == 3)
+        {
+            strcpy(vat_the[i].ten, "bui nho");
+            vat_the[i].bieu_tuong = 'N';
+            vat_the[i].id = 3;
+            vat_the[i].do_ben_toi_da = 4;
+            vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
+            vat_the[i].kha_nang_tuong_tac = 1;
+            vat_the[i].vi_tri_ruong = -1;
+            printf("%c", vat_the[i].bieu_tuong); // bui nho
+        }
+    }
 }
 
 /*Du lieu van ban cua game*/
