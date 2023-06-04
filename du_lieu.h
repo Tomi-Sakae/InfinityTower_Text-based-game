@@ -64,6 +64,7 @@ typedef struct khoi
     int do_ben;
     int do_ben_toi_da;
     int kha_nang_tuong_tac;
+    int kha_nang_dung_trong_vat_the;
     int vi_tri_ruong;
     int toa_do_x;
     int toa_do_y;
@@ -131,6 +132,7 @@ void luu_du_lieu()
         fprintf(f, "%d ", vat_the[i].do_ben);
         fprintf(f, "%d ", vat_the[i].do_ben_toi_da);
         fprintf(f, "%d ", vat_the[i].kha_nang_tuong_tac);
+        fprintf(f, "%d ", vat_the[i].kha_nang_dung_trong_vat_the);
         fprintf(f, "%d ", vat_the[i].vi_tri_ruong);
         fprintf(f, "%d ", vat_the[i].toa_do_x);
         fprintf(f, "%d ", vat_the[i].toa_do_y);
@@ -235,6 +237,7 @@ void tai_du_lieu()
         fscanf(f, "%d ", &vat_the[i].do_ben);
         fscanf(f, "%d ", &vat_the[i].do_ben_toi_da);
         fscanf(f, "%d ", &vat_the[i].kha_nang_tuong_tac);
+        fscanf(f, "%d ", &vat_the[i].kha_nang_dung_trong_vat_the);
         fscanf(f, "%d ", &vat_the[i].vi_tri_ruong);
         fscanf(f, "%d ", &vat_the[i].toa_do_x);
         fscanf(f, "%d ", &vat_the[i].toa_do_y);
@@ -325,7 +328,7 @@ void du_lieu_tang_1_1()
     for (i = 0; i < so_luong_vat_the; i++) // tao vat the
     {
         gotoxy(vat_the[i].toa_do_x, vat_the[i].toa_do_y); // tao vat the o vi tri ngau nhien
-        int vat_the_ban_dau = random(1, 3);
+        int vat_the_ban_dau = random(1, 4);
         if (vat_the_ban_dau == 1)
         {
             strcpy(vat_the[i].ten, "cai cay");
@@ -334,6 +337,7 @@ void du_lieu_tang_1_1()
             vat_the[i].do_ben_toi_da = 10;
             vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
             vat_the[i].kha_nang_tuong_tac = 0;
+            vat_the[i].kha_nang_dung_trong_vat_the = 0;
             vat_the[i].vi_tri_ruong = -1;
             printf("%c", vat_the[i].bieu_tuong); // cai cay
         }
@@ -345,6 +349,7 @@ void du_lieu_tang_1_1()
             vat_the[i].do_ben_toi_da = 10;
             vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
             vat_the[i].kha_nang_tuong_tac = 0;
+            vat_the[i].kha_nang_dung_trong_vat_the = 0;
             vat_the[i].vi_tri_ruong = -1;
             printf("%c", vat_the[i].bieu_tuong); // tang da
         }
@@ -356,8 +361,21 @@ void du_lieu_tang_1_1()
             vat_the[i].do_ben_toi_da = 4;
             vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
             vat_the[i].kha_nang_tuong_tac = 1;
+            vat_the[i].kha_nang_dung_trong_vat_the = 0;
             vat_the[i].vi_tri_ruong = -1;
             printf("%c", vat_the[i].bieu_tuong); // bui nho
+        }
+        if (vat_the_ban_dau == 4)
+        {
+            strcpy(vat_the[i].ten, "bui co");
+            vat_the[i].bieu_tuong = 'c';
+            vat_the[i].id = 7;
+            vat_the[i].do_ben_toi_da = 1;
+            vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
+            vat_the[i].kha_nang_tuong_tac = 0;
+            vat_the[i].kha_nang_dung_trong_vat_the = 1;
+            vat_the[i].vi_tri_ruong = -1;
+            printf("%c", vat_the[i].bieu_tuong); // bui co
         }
     }
 }
