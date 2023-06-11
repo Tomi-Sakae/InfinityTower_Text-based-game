@@ -55,6 +55,11 @@ int so_luong_chu_so(int temp, int count)
 }
 
 FILE *f;
+typedef struct trong_trot
+{
+    int dang_duoc_trong;
+    int vat_pham_trong;
+} trong_trot;
 
 typedef struct khoi
 {
@@ -65,7 +70,7 @@ typedef struct khoi
     int do_ben_toi_da;
     int kha_nang_tuong_tac;
     int kha_nang_dung_trong_vat_the;
-    int dang_duoc_trong;
+    trong_trot kha_nang_trong_trot;
     int vi_tri_ruong;
     int toa_do_x;
     int toa_do_y;
@@ -135,7 +140,8 @@ void luu_du_lieu()
         fprintf(f, "%d ", vat_the[i].do_ben_toi_da);
         fprintf(f, "%d ", vat_the[i].kha_nang_tuong_tac);
         fprintf(f, "%d ", vat_the[i].kha_nang_dung_trong_vat_the);
-        fprintf(f, "%d ", vat_the[i].dang_duoc_trong);
+        fprintf(f, "%d ", vat_the[i].kha_nang_trong_trot.dang_duoc_trong);
+        fprintf(f, "%d ", vat_the[i].kha_nang_trong_trot.vat_pham_trong);
         fprintf(f, "%d ", vat_the[i].vi_tri_ruong);
         fprintf(f, "%d ", vat_the[i].toa_do_x);
         fprintf(f, "%d ", vat_the[i].toa_do_y);
@@ -172,9 +178,9 @@ void luu_du_lieu()
         fprintf(f, "%d ", thoi_gian_hoi_vat_the[i].vi_tri);
     }
     fprintf(f, "\n");
-    for(i = 0; i < so_luong_hoi; i++)
+    for (i = 0; i < so_luong_hoi; i++)
     {
-         fputs(thoi_gian_hoi_vat_the[i].ten_vat_the, f);
+        fputs(thoi_gian_hoi_vat_the[i].ten_vat_the, f);
         if (sua_loi_file == 0)
             fprintf(f, "\n");
     }
@@ -247,7 +253,8 @@ void tai_du_lieu()
         fscanf(f, "%d ", &vat_the[i].do_ben_toi_da);
         fscanf(f, "%d ", &vat_the[i].kha_nang_tuong_tac);
         fscanf(f, "%d ", &vat_the[i].kha_nang_dung_trong_vat_the);
-        fscanf(f, "%d ", &vat_the[i].dang_duoc_trong);
+        fscanf(f, "%d ", &vat_the[i].kha_nang_trong_trot.dang_duoc_trong);
+        fscanf(f, "%d ", &vat_the[i].kha_nang_trong_trot.vat_pham_trong);
         fscanf(f, "%d ", &vat_the[i].vi_tri_ruong);
         fscanf(f, "%d ", &vat_the[i].toa_do_x);
         fscanf(f, "%d ", &vat_the[i].toa_do_y);
@@ -350,7 +357,8 @@ void du_lieu_tang_1_1()
             vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
             vat_the[i].kha_nang_tuong_tac = 0;
             vat_the[i].kha_nang_dung_trong_vat_the = 0;
-            vat_the[i].dang_duoc_trong = 0;
+            vat_the[i].kha_nang_trong_trot.dang_duoc_trong = 0;
+            vat_the[i].kha_nang_trong_trot.vat_pham_trong = -1;
             vat_the[i].vi_tri_ruong = -1;
             printf("%c", vat_the[i].bieu_tuong); // cai cay
         }
@@ -363,7 +371,8 @@ void du_lieu_tang_1_1()
             vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
             vat_the[i].kha_nang_tuong_tac = 0;
             vat_the[i].kha_nang_dung_trong_vat_the = 0;
-            vat_the[i].dang_duoc_trong = 0;
+            vat_the[i].kha_nang_trong_trot.dang_duoc_trong = 0;
+            vat_the[i].kha_nang_trong_trot.vat_pham_trong = -1;
             vat_the[i].vi_tri_ruong = -1;
             printf("%c", vat_the[i].bieu_tuong); // tang da
         }
@@ -376,7 +385,8 @@ void du_lieu_tang_1_1()
             vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
             vat_the[i].kha_nang_tuong_tac = 1;
             vat_the[i].kha_nang_dung_trong_vat_the = 0;
-            vat_the[i].dang_duoc_trong = 0;
+            vat_the[i].kha_nang_trong_trot.dang_duoc_trong = 0;
+            vat_the[i].kha_nang_trong_trot.vat_pham_trong = -1;
             vat_the[i].vi_tri_ruong = -1;
             printf("%c", vat_the[i].bieu_tuong); // bui nho
         }
@@ -389,7 +399,8 @@ void du_lieu_tang_1_1()
             vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
             vat_the[i].kha_nang_tuong_tac = 0;
             vat_the[i].kha_nang_dung_trong_vat_the = 1;
-            vat_the[i].dang_duoc_trong = 0;
+            vat_the[i].kha_nang_trong_trot.dang_duoc_trong = 0;
+            vat_the[i].kha_nang_trong_trot.vat_pham_trong = -1;
             vat_the[i].vi_tri_ruong = -1;
             printf("%c", vat_the[i].bieu_tuong); // bui co
         }
