@@ -1928,7 +1928,10 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
     case 'k':
     {
         if (huong_nguoi_choi == kiem_tra_vat_the() || vat_pham[trang_bi].the == 4 || vat_pham[trang_bi].the == 5)
+        {
             thuc_hien_hanh_dong();
+            break;
+        }
         if (vat_pham[trang_bi].co_the_an == 1 && vat_pham[trang_bi].the == 1)
             thuc_hien_dat_khoi();
         break;
@@ -1936,9 +1939,15 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
     case 'p':
     {
         if (vat_pham[trang_bi].co_the_an == 1 && do_doi < 100)
+        {
             an_thuc_an();
+            break;
+        }
         if (huong_nguoi_choi == kiem_tra_vat_the() && vat_the[i_tam].kha_nang_tuong_tac == 1)
+        {
             tuong_tac_vat_the();
+            break;
+        }
         if (vat_pham[trang_bi].the == 1 && vat_pham[trang_bi].co_the_an == 0)
             thuc_hien_dat_khoi();
         break;
@@ -1989,6 +1998,7 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
         {
             the_luc++;
             thoi_gian_hoi_the_luc = 0;
+            strcat(hanh_dong, " | + 1 the luc");
         }
 
         break;
@@ -2165,7 +2175,8 @@ void thuc_hien_hanh_dong()
             strcat(hanh_dong, "chum nho");
         }
         xoa_vat_the();
-        them_vat_pham(3, vat_the[i_tam].do_ben);
+        if (vat_the[i_tam].do_ben != 0)
+            them_vat_pham(3, vat_the[i_tam].do_ben);
         return;
     }
 
@@ -2887,7 +2898,7 @@ void an_thuc_an() // ham an thuc an
         vat_pham[trang_bi].so_luong--;
         if (vat_pham[trang_bi].so_luong == 0)
             xoa_vat_pham(trang_bi);
-        strcpy(hanh_dong, "Ban vua an nho");
+        strcpy(hanh_dong, "Ban vua an nho | + 10 do doi");
     }
     if (vat_pham[trang_bi].id == 19)
     {
@@ -2895,7 +2906,7 @@ void an_thuc_an() // ham an thuc an
         vat_pham[trang_bi].so_luong--;
         if (vat_pham[trang_bi].so_luong == 0)
             xoa_vat_pham(trang_bi);
-        strcpy(hanh_dong, "Ban vua an banh mi");
+        strcpy(hanh_dong, "Ban vua an banh mi | + 50 do doi");
     }
 }
 
