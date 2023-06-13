@@ -13,6 +13,9 @@ int gio = 6;
 int phut = 0;
 int mau = 100;
 int the_luc = 100;
+int do_doi = 100;
+int do_khat = 100;
+int thoi_gian_hoi_the_luc = 0;
 int so_luong_hoi = 0;
 char hanh_dong[100] = "Ban dang dung yen";
 char tam_nhin[100];
@@ -117,6 +120,9 @@ void luu_du_lieu()
     fprintf(f, "%d ", phut);
     fprintf(f, "%d ", mau);
     fprintf(f, "%d ", the_luc);
+    fprintf(f, "%d ", do_doi);
+    fprintf(f, "%d ", do_khat);
+    fprintf(f, "%d ", thoi_gian_hoi_the_luc);
     fprintf(f, "\n");
     fputs(hanh_dong, f);
     fprintf(f, "\n");
@@ -235,6 +241,9 @@ void tai_du_lieu()
     fscanf(f, "%d ", &phut);
     fscanf(f, "%d ", &mau);
     fscanf(f, "%d ", &the_luc);
+    fscanf(f, "%d ", &do_doi);
+    fscanf(f, "%d ", &do_khat);
+    fscanf(f, "%d ", &thoi_gian_hoi_the_luc);
     fgets(hanh_dong, sizeof hanh_dong, f);
     hanh_dong[strcspn(hanh_dong, "\n")] = 0; // sua loi du dau \n khi dung fgets
     fgets(tam_nhin, sizeof tam_nhin, f);

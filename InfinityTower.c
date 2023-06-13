@@ -40,6 +40,28 @@ void game_over() // ket thuc game
     exit(1);
 }
 
+void them_thong_tin_nhan_vat() // phan thong tin co ban cua nhan vat
+{
+    gotoxy(56, 5);
+    printf("Thong tin nhan vat: ");
+    gotoxy(58, 7);
+    printf("Doi: %d", do_doi);
+    gotoxy(58, 9);
+    printf("Khat: %d", do_khat);
+    while (1)
+    {
+        char lua_chon_menu = getch();
+        switch (lua_chon_menu)
+        {
+        case 'i':
+        {
+            return;
+            break;
+        }
+        }
+    }
+}
+
 void thong_tin_nhan_vat()
 {
     gotoxy(62, 6);
@@ -59,9 +81,23 @@ void thong_tin_nhan_vat()
         mau -= 5;
         the_luc = 0;
     }
+    if (do_doi <= 0)
+    {
+        mau -= 5;
+        do_doi = 0;
+    }
+    if (do_khat <= 0)
+    {
+        mau -= 5;
+        do_khat = 0;
+    }
 
     if (the_luc > 100)
         the_luc = 100;
+    if (do_doi > 100)
+        do_doi = 100;
+    if (do_khat > 100)
+        do_khat = 100;
 
     if (mau <= 0) // het mau thi ket thuc game
         game_over();
@@ -136,6 +172,7 @@ void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
     {
         gio++;
         phut = 0;
+        do_doi -= 5;
     }
     if (gio >= 24)
         gio = 0;
@@ -1298,7 +1335,7 @@ void thong_tin() // phan thong tin cua game
         char lua_chon_menu = getch();
         switch (lua_chon_menu)
         {
-        case 'i':
+        case 'q':
         {
             return;
             break;
@@ -1420,6 +1457,8 @@ void cai_dat() // phan cai dat cua game
     gotoxy(58, 7);
     printf("Luu du lieu");
     gotoxy(58, 9);
+    printf("Ban luu vat pham");
+    gotoxy(58, 11);
     TextColor(4); // them mau do cho dong chu
     printf("Xoa du lieu");
     TextColor(7);
@@ -1449,7 +1488,7 @@ void cai_dat() // phan cai dat cua game
         }
         case 's':
         {
-            if (y_chon < 9)
+            if (y_chon < 11)
             {
                 gotoxy(56, y_chon);
                 printf("  ");
@@ -1466,6 +1505,12 @@ void cai_dat() // phan cai dat cua game
                 return;
             }
             if (y_chon == 9)
+            {
+                chuyen_chuc_nang();
+                thong_tin();
+                return;
+            }
+            if (y_chon == 11)
             {
                 xoa_du_lieu();
                 strcpy(hien_thi, "Xoa du lieu thanh cong! - Vui long thoat ra de choi lai");
@@ -1890,7 +1935,7 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
     }
     case 'p':
     {
-        if (vat_pham[trang_bi].co_the_an == 1 && the_luc < 100)
+        if (vat_pham[trang_bi].co_the_an == 1 && do_doi < 100)
             an_thuc_an();
         if (huong_nguoi_choi == kiem_tra_vat_the() && vat_the[i_tam].kha_nang_tuong_tac == 1)
             tuong_tac_vat_the();
@@ -1925,7 +1970,7 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
     case 'i':
     {
         chuyen_chuc_nang();
-        thong_tin();
+        them_thong_tin_nhan_vat();
         chuyen_chuc_nang();
         break;
     }
@@ -1939,6 +1984,13 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
     case 'n':
     {
         strcpy(hanh_dong, "Ban dang dung yen");
+        thoi_gian_hoi_the_luc++; // khi dung yen du 10 phut thi hoi 1 the luc
+        if (thoi_gian_hoi_the_luc == 10)
+        {
+            the_luc++;
+            thoi_gian_hoi_the_luc = 0;
+        }
+
         break;
     }
 
@@ -1967,6 +2019,8 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
         break;
     }
     }
+    if (lua_chon != 'n')
+        thoi_gian_hoi_the_luc = 0; // khi khong nhan n lien tuc thi reset thoi gian hoi the luc
     va_cham();
     kiem_tra_vat_the();
     tai_thoi_gian_hoi();
@@ -2829,7 +2883,7 @@ void an_thuc_an() // ham an thuc an
 {
     if (vat_pham[trang_bi].id == 3)
     {
-        the_luc += 10;
+        do_doi += 10;
         vat_pham[trang_bi].so_luong--;
         if (vat_pham[trang_bi].so_luong == 0)
             xoa_vat_pham(trang_bi);
@@ -2837,7 +2891,7 @@ void an_thuc_an() // ham an thuc an
     }
     if (vat_pham[trang_bi].id == 19)
     {
-        the_luc += 50;
+        do_doi += 50;
         vat_pham[trang_bi].so_luong--;
         if (vat_pham[trang_bi].so_luong == 0)
             xoa_vat_pham(trang_bi);
