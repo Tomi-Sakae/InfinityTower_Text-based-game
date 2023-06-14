@@ -173,6 +173,7 @@ void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
         gio++;
         phut = 0;
         do_doi -= 5;
+        do_khat -= 10;
     }
     if (gio >= 24)
         gio = 0;
@@ -1993,7 +1994,8 @@ void di_chuyen_va_hanh_dong() // ham di chuyen vi tri va thuc hien hanh dong cua
     case 'n':
     {
         strcpy(hanh_dong, "Ban dang dung yen");
-        thoi_gian_hoi_the_luc++; // khi dung yen du 10 phut thi hoi 1 the luc
+        if (the_luc < 100)
+            thoi_gian_hoi_the_luc++; // khi dung yen du 10 phut thi hoi 1 the luc
         if (thoi_gian_hoi_the_luc == 10)
         {
             the_luc++;
@@ -2987,6 +2989,11 @@ void tuong_tac_vat_the() // ham kiem tra vat the co the tuong tac la gi
             strcpy(vat_the[i_tam].ten, "dat da duoc xoi");
             vat_the[i_tam].kha_nang_trong_trot.dang_duoc_trong = 0;
         }
+    }
+    if (vat_the[i_tam].id == 9 && do_khat < 100)
+    {
+        strcpy(hanh_dong, "Ban vua uong nuoc | + 5 do khat");
+        do_khat += 5;
     }
 }
 

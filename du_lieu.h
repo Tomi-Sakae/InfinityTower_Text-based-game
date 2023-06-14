@@ -321,7 +321,7 @@ void tai_du_lieu()
 void du_lieu_tang_1_1()
 {
     srand((int)time(0));
-    so_luong_vat_the = random(25, 50);
+    so_luong_vat_the = random(50, 100);
 
     x_nguoi_choi = random(7, 52);
     y_nguoi_choi = random(6, 20);
@@ -356,7 +356,7 @@ void du_lieu_tang_1_1()
     for (i = 0; i < so_luong_vat_the; i++) // tao vat the
     {
         gotoxy(vat_the[i].toa_do_x, vat_the[i].toa_do_y); // tao vat the o vi tri ngau nhien
-        int vat_the_ban_dau = random(1, 4);
+        int vat_the_ban_dau = random(1, 5);
         if (vat_the_ban_dau == 1)
         {
             strcpy(vat_the[i].ten, "cai cay");
@@ -413,8 +413,36 @@ void du_lieu_tang_1_1()
             vat_the[i].vi_tri_ruong = -1;
             printf("%c", vat_the[i].bieu_tuong); // bui co
         }
+        if (vat_the_ban_dau == 5)
+        {
+            strcpy(vat_the[i].ten, "vung nuoc");
+            vat_the[i].bieu_tuong = 'v';
+            vat_the[i].id = 9;
+            vat_the[i].do_ben_toi_da = 1;
+            vat_the[i].do_ben = vat_the[i].do_ben_toi_da;
+            vat_the[i].kha_nang_tuong_tac = 1;
+            vat_the[i].kha_nang_dung_trong_vat_the = 1;
+            vat_the[i].kha_nang_trong_trot.dang_duoc_trong = 0;
+            vat_the[i].kha_nang_trong_trot.vat_pham_trong = -1;
+            vat_the[i].vi_tri_ruong = -1;
+            printf("%c", vat_the[i].bieu_tuong); // vung nuoc
+        }
+
     }
 }
+
+/* Danh sach id cua vat the:
+    1: Cai cay.
+    2: Tang da.
+    3: Bui nho.
+    4: Mam cay.
+    5: Lo nung.
+    6: Ruong go.
+    7: Bui co.
+    8: Dat da duoc xoi.
+    9: Vung nuoc.
+
+*/
 
 /*Du lieu van ban cua game*/
 void huong_dan()
