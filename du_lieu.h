@@ -25,7 +25,6 @@ char hien_thi[100];
 char buoi[100] = "Sang";
 char thoi_tiet[100] = "Nhieu may";
 char nguoi_choi = '>';
-int sua_loi_file = 0;
 int i, j;
 
 void TextColor(int x) // ham in chu mau trong c
@@ -132,10 +131,7 @@ void luu_du_lieu()
     fputs(tam_nhin, f);
     fprintf(f, "\n");
     fputs(tay_phai, f);
-    if (sua_loi_file == 0) // dieu chinh khoang cach luu game thich hop
-        fprintf(f, "\n");
-    if (sua_loi_file == 1 && strcmp(tay_phai, "Khong") == 0)
-        fprintf(f, "\n");
+    fprintf(f, "\n");
     fputs(buoi, f);
     fprintf(f, "\n");
     fputs(thoi_tiet, f);
@@ -176,8 +172,7 @@ void luu_du_lieu()
     for (i = 0; i < so_luong_vat_pham; i++)
     {
         fputs(vat_pham[i].ten, f);
-        if (sua_loi_file == 0)
-            fprintf(f, "\n");
+        fprintf(f, "\n");
     }
     fprintf(f, "%d ", so_luong_hoi);
     for (i = 0; i < so_luong_hoi; i++)
@@ -190,8 +185,7 @@ void luu_du_lieu()
     for (i = 0; i < so_luong_hoi; i++)
     {
         fputs(thoi_gian_hoi_vat_the[i].ten_vat_the, f);
-        if (sua_loi_file == 0)
-            fprintf(f, "\n");
+        fprintf(f, "\n");
     }
     for (i = 0; i < so_luong_ruong; i++)
         fprintf(f, "%d ", so_luong_vat_pham_trong_ruong[i]);
@@ -211,8 +205,7 @@ void luu_du_lieu()
         for (j = 0; j < so_luong_vat_pham_trong_ruong[i]; j++)
         {
             fputs(vat_the_ruong[j][i].ten, f);
-            if (sua_loi_file == 0)
-                fprintf(f, "\n");
+            fprintf(f, "\n");
         }
     }
     fprintf(f, "%d ", so_luong_vat_pham_da_co);
@@ -230,7 +223,6 @@ void xoa_du_lieu()
 
 void tai_du_lieu()
 {
-    sua_loi_file = 1;
     f = fopen("save.txt", "r");
     fscanf(f, "%d ", &x_nguoi_choi);
     fscanf(f, "%d ", &y_nguoi_choi);
@@ -290,7 +282,11 @@ void tai_du_lieu()
         fscanf(f, "%d ", &vat_pham[i].the);
     }
     for (i = 0; i < so_luong_vat_pham; i++)
+    {
         fgets(vat_pham[i].ten, sizeof vat_pham[i].ten, f);
+        vat_pham[i].ten[strcspn(vat_pham[i].ten, "\n")] = 0;
+    }
+
     fscanf(f, "%d ", &so_luong_hoi);
     for (i = 0; i < so_luong_hoi; i++)
     {
@@ -317,7 +313,10 @@ void tai_du_lieu()
             fscanf(f, "%d ", &vat_the_ruong[j][i].the);
         }
         for (j = 0; j < so_luong_vat_pham_trong_ruong[i]; j++)
+        {
             fgets(vat_the_ruong[j][i].ten, sizeof vat_the_ruong[j][i].ten, f);
+            vat_the_ruong[j][i].ten[strcspn(vat_the_ruong[j][i].ten, "\n")] = 0;
+        }
     }
     fscanf(f, "%d ", &so_luong_vat_pham_da_co);
     for (i = 0; i < so_luong_vat_pham_da_co; i++)

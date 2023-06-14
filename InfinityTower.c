@@ -120,14 +120,8 @@ void thong_tin_nhan_vat()
     if (vat_pham[trang_bi].so_luong != 0 && vat_pham[trang_bi].gop == 1)
     {
         gotoxy(66 + strlen(tay_phai), 10);
-        if (sua_loi_file == 0) // sua loi tai du lieu bi du ra \n
-            printf(" x ");
-        else
-            printf("x ");
-        if (sua_loi_file == 0)
-            gotoxy(66 + strlen(tay_phai) + 3, 10);
-        else
-            gotoxy((66 + strlen(tay_phai) + 3) - 1, 10);
+        printf(" x ");
+        gotoxy(66 + strlen(tay_phai) + 3, 10);
         printf("%d", vat_pham[trang_bi].so_luong);
     }
     do_dai_chuoi[5] = strlen(tay_phai) + so_luong_chu_so(vat_pham[trang_bi].so_luong, 0) + 3;
@@ -261,50 +255,20 @@ void chon_so_luong_vat_pham(int vi_tri) // ham cho phep nguoi choi chon so luong
         {
             puts(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten);
             gotoxy(58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten), 7);
-            if (sua_loi_file == 0)
-            {
-                if (so_luong_can > 1)
-                    printf(" <");
-                printf(" %d/", so_luong_can);
-            }
+            if (so_luong_can > 1)
+                printf(" <");
+            printf(" %d/", so_luong_can);
+            if (so_luong_can > 1)
+                gotoxy(58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 4 + so_luong_chu_so(so_luong_can, 0), 7);
             else
-            {
-                if (so_luong_can > 1)
-                    printf("< ");
-                printf("%d/", so_luong_can);
-            }
-
-            if (sua_loi_file == 0)
-            {
-                if (so_luong_can > 1)
-                    gotoxy(58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 4 + so_luong_chu_so(so_luong_can, 0), 7);
-                else
-                    gotoxy(58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0), 7);
-            }
-            else
-            {
-                if (so_luong_can > 1)
-                    gotoxy((58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 4 + so_luong_chu_so(so_luong_can, 0)) - 1, 7);
-                else
-                    gotoxy((58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0)) - 1, 7);
-            }
+                gotoxy(58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0), 7);
             printf("%d", vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong);
             if (so_luong_can < vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong - 1)
             {
-                if (sua_loi_file == 0)
-                {
-                    if (so_luong_can == 1)
-                        gotoxy((58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong, 0)) - 2, 7);
-                    else
-                        gotoxy(58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong, 0), 7);
-                }
+                if (so_luong_can == 1)
+                    gotoxy((58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong, 0)) - 2, 7);
                 else
-                {
-                    if (so_luong_can == 1)
-                        gotoxy((58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong, 0)) - 3, 7);
-                    else
-                        gotoxy((58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong, 0)) - 1, 7);
-                }
+                    gotoxy(58 + strlen(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_the_ruong[vi_tri][vat_the[i_tam].vi_tri_ruong].so_luong, 0), 7);
                 printf(" >");
             }
         }
@@ -312,50 +276,20 @@ void chon_so_luong_vat_pham(int vi_tri) // ham cho phep nguoi choi chon so luong
         {
             puts(vat_pham[vi_tri].ten);
             gotoxy(58 + strlen(vat_pham[vi_tri].ten), 7);
-            if (sua_loi_file == 0)
-            {
-                if (so_luong_can > 1)
-                    printf(" <");
-                printf(" %d/", so_luong_can);
-            }
+            if (so_luong_can > 1)
+                printf(" <");
+            printf(" %d/", so_luong_can);
+            if (so_luong_can > 1)
+                gotoxy(58 + strlen(vat_pham[vi_tri].ten) + 4 + so_luong_chu_so(so_luong_can, 0), 7);
             else
-            {
-                if (so_luong_can > 1)
-                    printf("< ");
-                printf("%d/", so_luong_can);
-            }
-
-            if (sua_loi_file == 0)
-            {
-                if (so_luong_can > 1)
-                    gotoxy(58 + strlen(vat_pham[vi_tri].ten) + 4 + so_luong_chu_so(so_luong_can, 0), 7);
-                else
-                    gotoxy(58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0), 7);
-            }
-            else
-            {
-                if (so_luong_can > 1)
-                    gotoxy((58 + strlen(vat_pham[vi_tri].ten) + 4 + so_luong_chu_so(so_luong_can, 0)) - 1, 7);
-                else
-                    gotoxy((58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0)) - 1, 7);
-            }
+                gotoxy(58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0), 7);
             printf("%d", vat_pham[vi_tri].so_luong);
             if (so_luong_can < vat_pham[vi_tri].so_luong - 1)
             {
-                if (sua_loi_file == 0)
-                {
-                    if (so_luong_can == 1)
-                        gotoxy((58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_pham[vi_tri].so_luong, 0)) - 2, 7);
-                    else
-                        gotoxy(58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_pham[vi_tri].so_luong, 0), 7);
-                }
+                if (so_luong_can == 1)
+                    gotoxy((58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_pham[vi_tri].so_luong, 0)) - 2, 7);
                 else
-                {
-                    if (so_luong_can == 1)
-                        gotoxy((58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_pham[vi_tri].so_luong, 0)) - 3, 7);
-                    else
-                        gotoxy((58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_pham[vi_tri].so_luong, 0)) - 1, 7);
-                }
+                    gotoxy(58 + strlen(vat_pham[vi_tri].ten) + 2 + so_luong_chu_so(so_luong_can, 0) + 2 + so_luong_chu_so(vat_pham[vi_tri].so_luong, 0), 7);
                 printf(" >");
             }
         }
@@ -472,14 +406,8 @@ void tui_do() // giao dien tui do
             if (vat_pham[i].so_luong != 0 && vat_pham[i].gop == 1)
             {
                 gotoxy(58 + strlen(vat_pham[i].ten), y);
-                if (sua_loi_file == 0)
-                    printf(" x ");
-                else
-                    printf("x ");
-                if (sua_loi_file == 0)
-                    gotoxy(58 + strlen(vat_pham[i].ten) + 3, y);
-                else
-                    gotoxy((58 + strlen(vat_pham[i].ten) + 3) - 1, y);
+                printf(" x ");
+                gotoxy(58 + strlen(vat_pham[i].ten) + 3, y);
                 printf("%d", vat_pham[i].so_luong);
             }
             y += 2;
@@ -664,14 +592,8 @@ void xem_ruong() // ham cho phep nguoi choi xem ruong ben trong co gi
         if (vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].so_luong != 0 && vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].gop == 1)
         {
             gotoxy(58 + strlen(vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].ten), y);
-            if (sua_loi_file == 0)
-                printf(" x ");
-            else
-                printf("x ");
-            if (sua_loi_file == 0)
-                gotoxy(58 + strlen(vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].ten) + 3, y);
-            else
-                gotoxy((58 + strlen(vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].ten) + 3) - 1, y);
+            printf(" x ");
+            gotoxy(58 + strlen(vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].ten) + 3, y);
             printf("%d", vat_the_ruong[i][vat_the[i_tam].vi_tri_ruong].so_luong);
         }
         y += 2;
@@ -2581,10 +2503,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0; // 0 la vat pham khong the an duoc
         vat_pham[so_luong_vat_pham].gop = 1;       // 1 la vat pham co the gop lai
-        if (sua_loi_file == 0)                     // sua loi vat pham moi dua vao khi tai du lieu xung dot voi sua loi file thieu \n
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Khoi go");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Khoi go\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Khoi go");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2597,10 +2516,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 1;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Cuc da");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Cuc da\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Cuc da");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2613,10 +2529,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 1;
         vat_pham[so_luong_vat_pham].gop = 1;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Chum nho");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Chum nho\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Chum nho");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2629,10 +2542,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 1;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Mam cay");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Mam cay\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Mam cay");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2645,10 +2555,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 0; // 0 la vat pham khong the gop duoc
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Riu ri set");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Riu ri set\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Riu ri set");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2661,10 +2568,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 0;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Cup ri set");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Cup ri set\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Cup ri set");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2677,10 +2581,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 2;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 0;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Riu go");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Riu go\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Riu go");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2693,10 +2594,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 2;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 0;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Cup go");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Cup go\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Cup go");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2709,10 +2607,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 1;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Lo nung");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Lo nung\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Lo nung");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2725,10 +2620,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 1;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Ruong go");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Ruong go\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Ruong go");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2741,10 +2633,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 0;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "The khong gian");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "The khong gian\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "The khong gian");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2757,10 +2646,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 1;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Hat giong");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Hat giong\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Hat giong");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2773,10 +2659,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 0;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Xeng go");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Xeng go\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Xeng go");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2789,10 +2672,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 0;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Cuoc go");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Cuoc go\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Cuoc go");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2805,10 +2685,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 1;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Cuc dat");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Cuc dat\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Cuc dat");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2821,10 +2698,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 1;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Cuc dat da duoc xoi");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Cuc dat da duoc xoi\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Cuc dat da duoc xoi");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2837,10 +2711,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 1;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Lua mi");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Lua mi\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Lua mi");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2853,10 +2724,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 0;
         vat_pham[so_luong_vat_pham].gop = 1;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Bot mi");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Bot mi\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Bot mi");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2869,10 +2737,7 @@ void tao_moi_vat_pham(int id, int so_luong) // tao mot vat pham ma nguoi choi ch
         vat_pham[so_luong_vat_pham].suc_cong_pha = 1;
         vat_pham[so_luong_vat_pham].co_the_an = 1;
         vat_pham[so_luong_vat_pham].gop = 1;
-        if (sua_loi_file == 0)
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Banh mi");
-        else
-            strcpy(vat_pham[so_luong_vat_pham].ten, "Banh mi\n");
+        strcpy(vat_pham[so_luong_vat_pham].ten, "Banh mi");
         if (so_luong_vat_pham == 0)
             vat_pham[so_luong_vat_pham].so_luong = 0 + so_luong;
         else
@@ -2997,8 +2862,6 @@ void tuong_tac_vat_the() // ham kiem tra vat the co the tuong tac la gi
         char ten_vat_pham_tam[100];
         strcpy(ten_vat_pham_tam, vat_pham[trang_bi].ten);
         ten_vat_pham_tam[0] += 32;
-        if (sua_loi_file != 0)
-            ten_vat_pham_tam[strcspn(ten_vat_pham_tam, "\n")] = 0;
         strcat(vat_the[i_tam].ten, " dang trong ");
         strcat(vat_the[i_tam].ten, ten_vat_pham_tam);
         vat_the[i_tam].kha_nang_trong_trot.dang_duoc_trong = 1;
