@@ -15,6 +15,7 @@ int mau = 100;
 int the_luc = 100;
 int do_doi = 100;
 int do_khat = 100;
+int kiem_tra_hien_thi[2] = {-1, -1};
 int thoi_gian_hoi_the_luc = 0;
 int so_luong_hoi = 0;
 char hanh_dong[100] = "Ban dang dung yen";
@@ -122,6 +123,8 @@ void luu_du_lieu()
     fprintf(f, "%d ", the_luc);
     fprintf(f, "%d ", do_doi);
     fprintf(f, "%d ", do_khat);
+    for (i = 0; i < 2; i++)
+        fprintf(f, "%d ", kiem_tra_hien_thi[i]);
     fprintf(f, "%d ", thoi_gian_hoi_the_luc);
     fprintf(f, "\n");
     fputs(hanh_dong, f);
@@ -243,6 +246,8 @@ void tai_du_lieu()
     fscanf(f, "%d ", &the_luc);
     fscanf(f, "%d ", &do_doi);
     fscanf(f, "%d ", &do_khat);
+    for (i = 0; i < 2; i++)
+        fscanf(f, "%d ", &kiem_tra_hien_thi[i]);
     fscanf(f, "%d ", &thoi_gian_hoi_the_luc);
     fgets(hanh_dong, sizeof hanh_dong, f);
     hanh_dong[strcspn(hanh_dong, "\n")] = 0; // sua loi du dau \n khi dung fgets
@@ -294,7 +299,10 @@ void tai_du_lieu()
         fscanf(f, "%d ", &thoi_gian_hoi_vat_the[i].vi_tri);
     }
     for (i = 0; i < so_luong_hoi; i++)
+    {
         fgets(thoi_gian_hoi_vat_the[i].ten_vat_the, sizeof thoi_gian_hoi_vat_the[i].ten_vat_the, f);
+        thoi_gian_hoi_vat_the[i].ten_vat_the[strcspn(thoi_gian_hoi_vat_the[i].ten_vat_the, "\n")] = 0;
+    }
     for (i = 0; i < so_luong_ruong; i++)
         fscanf(f, "%d ", &so_luong_vat_pham_trong_ruong[i]);
     for (i = 0; i < so_luong_ruong; i++)
@@ -427,7 +435,6 @@ void du_lieu_tang_1_1()
             vat_the[i].vi_tri_ruong = -1;
             printf("%c", vat_the[i].bieu_tuong); // vung nuoc
         }
-
     }
 }
 

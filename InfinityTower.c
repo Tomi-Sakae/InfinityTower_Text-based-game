@@ -175,6 +175,38 @@ void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
         do_doi -= 5;
         do_khat -= 10;
     }
+    if (do_doi <= 60 && do_doi > 30 && kiem_tra_hien_thi[0] == -1)
+        kiem_tra_hien_thi[0] = 1;
+    if (kiem_tra_hien_thi[0] == 1)
+    {
+        strcpy(hien_thi, "Ban dang cam thay doi!");
+        kiem_tra_hien_thi[0] = 0;
+    }
+    if (do_doi <= 30 && kiem_tra_hien_thi[0] == 0)
+        kiem_tra_hien_thi[0] = 2;
+    if (kiem_tra_hien_thi[0] == 2)
+    {
+        strcpy(hien_thi, "Ban dang cam thay rat doi!!");
+        kiem_tra_hien_thi[0] = -2;
+    }
+    if (do_doi > 60 && (kiem_tra_hien_thi[0] == -2 || kiem_tra_hien_thi[0] == 0))
+        kiem_tra_hien_thi[0] = -1;
+    if (do_khat <= 60 && do_khat > 30 && kiem_tra_hien_thi[1] == -1)
+        kiem_tra_hien_thi[1] = 1;
+    if (kiem_tra_hien_thi[1] == 1)
+    {
+        strcpy(hien_thi, "Ban dang cam thay khat!");
+        kiem_tra_hien_thi[1] = 0;
+    }
+    if (do_khat <= 30 && kiem_tra_hien_thi[1] == 0)
+        kiem_tra_hien_thi[1] = 2;
+    if (kiem_tra_hien_thi[1] == 2)
+    {
+        strcpy(hien_thi, "Ban dang cam thay rat khat!!");
+        kiem_tra_hien_thi[1] = -2;
+    }
+    if (do_khat > 60 && (kiem_tra_hien_thi[1] == -2 || kiem_tra_hien_thi[1] == 0))
+        kiem_tra_hien_thi[1] = -1;
     if (gio >= 24)
         gio = 0;
     if (gio >= 3 && gio < 11)
@@ -1843,7 +1875,7 @@ int main()
 
         if (kt_menu == 1)
         {
-            xoa_du_lieu();
+            strcpy(hien_thi, "Luu du lieu thanh cong!");
             kt_menu = 0;
         }
 
@@ -2477,7 +2509,7 @@ void thuc_hien_dat_khoi()
     if (vat_pham[trang_bi].the == 5 || vat_pham[trang_bi].id == 16)
     {
         strcpy(vat_the[so_luong_vat_the].ten, "dat da duoc xoi");
-        vat_the[so_luong_vat_the].bieu_tuong = 'U';
+        vat_the[so_luong_vat_the].bieu_tuong = 'd';
         printf("%c", vat_the[so_luong_vat_the].bieu_tuong);
         vat_the[so_luong_vat_the].id = 8;
         vat_the[so_luong_vat_the].do_ben_toi_da = 1;
