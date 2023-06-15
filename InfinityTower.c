@@ -13,6 +13,7 @@ int kt_menu_tui_do = 0;
 int hien_thi_lai_vat_the = 0;            // bien kiem tra dieu kien de hien thi lai vat the
 char bieu_tuong_tam;                     // bieu tuong cua vat the se hien thi
 int fix_dung_tren_vat_the_lien_tiep = 0; // bien sua loi khi dung tren vat the va di chuyen sang vat the dung len duoc
+char loi_canh_bao[2][100] = {" ", " "};
 
 void di_chuyen_va_hanh_dong();
 void va_cham();
@@ -38,6 +39,29 @@ void game_over() // ket thuc game
     printf("Game Over!");
     sleep(5);
     exit(1);
+}
+
+void canh_bao()
+{
+    int k;
+    j = 0;
+    for (i = 0; i < 2; i++)
+    {
+        gotoxy(70, j);
+        for (k = 0; k < 21; k++)
+            printf(" ");
+        gotoxy(70, j);
+        puts(loi_canh_bao[i]);
+        if (strcmp(loi_canh_bao[i], " ") != 0)
+            j++;
+        else
+        {
+            gotoxy(70, j + 1);
+            for (k = 0; k < 21; k++)
+                printf(" ");
+        }
+    }
+    j = 0;
 }
 
 void them_thong_tin_nhan_vat() // phan thong tin co ban cua nhan vat
@@ -169,38 +193,21 @@ void giao_dien_game_chinh() // ham hien thi chuoi va xoa chuoi
         do_doi -= 5;
         do_khat -= 10;
     }
-    if (do_doi <= 60 && do_doi > 30 && kiem_tra_hien_thi[0] == -1)
-        kiem_tra_hien_thi[0] = 1;
-    if (kiem_tra_hien_thi[0] == 1)
-    {
-        strcpy(hien_thi, "Ban dang cam thay doi!");
-        kiem_tra_hien_thi[0] = 0;
-    }
-    if (do_doi <= 30 && kiem_tra_hien_thi[0] == 0)
-        kiem_tra_hien_thi[0] = 2;
-    if (kiem_tra_hien_thi[0] == 2)
-    {
-        strcpy(hien_thi, "Ban dang cam thay rat doi!!");
-        kiem_tra_hien_thi[0] = -2;
-    }
-    if (do_doi > 60 && (kiem_tra_hien_thi[0] == -2 || kiem_tra_hien_thi[0] == 0))
-        kiem_tra_hien_thi[0] = -1;
-    if (do_khat <= 60 && do_khat > 30 && kiem_tra_hien_thi[1] == -1)
-        kiem_tra_hien_thi[1] = 1;
-    if (kiem_tra_hien_thi[1] == 1)
-    {
-        strcpy(hien_thi, "Ban dang cam thay khat!");
-        kiem_tra_hien_thi[1] = 0;
-    }
-    if (do_khat <= 30 && kiem_tra_hien_thi[1] == 0)
-        kiem_tra_hien_thi[1] = 2;
-    if (kiem_tra_hien_thi[1] == 2)
-    {
-        strcpy(hien_thi, "Ban dang cam thay rat khat!!");
-        kiem_tra_hien_thi[1] = -2;
-    }
-    if (do_khat > 60 && (kiem_tra_hien_thi[1] == -2 || kiem_tra_hien_thi[1] == 0))
-        kiem_tra_hien_thi[1] = -1;
+
+    if (do_doi <= 60 && do_doi > 30)
+        strcpy(loi_canh_bao[0], "! Ban dang bi doi");
+    if (do_doi <= 30)
+        strcpy(loi_canh_bao[0], "! Ban dang rat doi");
+    if (do_doi > 60)
+        strcpy(loi_canh_bao[0], " ");
+    if (do_khat <= 60 && do_khat > 30)
+        strcpy(loi_canh_bao[1], "! Ban dang bi khat");
+    if (do_khat <= 30)
+        strcpy(loi_canh_bao[1], "! Ban dang rat khat");
+    if (do_khat > 60)
+        strcpy(loi_canh_bao[1], " ");
+    canh_bao();
+
     if (gio >= 24)
         gio = 0;
     if (gio >= 3 && gio < 11)
